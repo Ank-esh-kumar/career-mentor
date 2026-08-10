@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 37 99 235;
+    --color-accent: 56 189 248;
+    --color-surface: 15 23 42;
+    --color-card: 30 41 59;
+  }
+
+  * {
+  }
+
+  *::-webkit-scrollbar { width: 6px; height: 6px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+  *::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+  ::selection {
+    background: rgba(37, 99, 235, 0.4);
+    color: white;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px #1E293B inset !important;
+    -webkit-text-fill-color: #F8FAFC !important;
+    caret-color: #F8FAFC;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(30, 41, 59, 0.6);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-hover:hover {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .glass-strong {
+    background: rgba(30, 41, 59, 0.85);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-light to-accent;
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.5), rgba(56, 189, 248, 0.5));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-primary to-primary-light text-white font-semibold rounded-xl 
+           hover:shadow-glow transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98]
+           focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-surface;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 glass glass-hover text-white font-semibold rounded-xl
+           transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98]
+           focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-surface;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg 
+           transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-white/10;
+  }
+
+  .btn-danger {
+    @apply px-6 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold rounded-xl
+           hover:shadow-lg transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .card {
+    @apply bg-surface-card rounded-2xl border border-border p-6 
+           transition-all duration-300 ease-out hover:border-border-light hover:shadow-card;
+  }
+
+  .card-glass {
+    @apply glass rounded-2xl p-6 transition-all duration-300 ease-out hover:border-border-light;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-surface-card border border-border rounded-xl text-gray-100
+           placeholder-gray-500 focus:outline-none focus:border-primary/50 focus:ring-2 
+           focus:ring-primary/20 transition-all duration-200 ease-out;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-gray-400 mb-1.5;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold font-display text-white;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-gray-400 max-w-2xl;
+  }
+}
+
+@layer utilities {
+  .text-balance { }
+
+  .animate-in {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+}

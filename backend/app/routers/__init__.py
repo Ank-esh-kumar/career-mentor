@@ -1,0 +1,10 @@
+from app.routers.auth import router as auth_router
+from app.routers.profile import router as profile_router
+from app.routers.resume import router as resume_router
+from app.routers.career import router as career_router
+from app.routers.skillgap import router as skillgap_router
+from app.routers.roadmap import router as roadmap_router
+from app.routers.chat import router as chat_router
+from app.routers.analytics import router as analytics_router
+from app.routers.settings import router as settings_router
+from app.routers.subscription import router as subscription_router
