@@ -5,6 +5,7 @@ import {
   Bookmark, BookOpen, Settings, LogOut, ChevronLeft, Sparkles, X, Menu
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useSubscription } from '../../context/SubscriptionContext';
 
 const navItems = [
   { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -20,6 +21,7 @@ const navItems = [
 
 export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }) {
   const { user, logout } = useAuth();
+  const { isPremium } = useSubscription();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -70,8 +72,13 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
               <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary via-accent to-purple-500 flex items-center justify-center text-white font-bold text-lg shrink-0 shadow-[0_0_20px_rgba(var(--color-primary),0.3)] ring-2 ring-white/10">
                 {user.full_name?.charAt(0)?.toUpperCase() || 'U'}
               </div>
-              <div className="min-w-0">
-                <p className="text-sm font-bold text-white truncate tracking-wide">{user.full_name}</p>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-bold text-white truncate tracking-wide">{user.full_name}</p>
+                  {isPremium && (
+                    <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-gradient-to-r from-amber-500 to-amber-300 text-black uppercase tracking-wider shrink-0 shadow-sm border border-amber-400">Pro</span>
+                  )}
+                </div>
                 <p className="text-xs text-primary-lighter/70 truncate">{user.email}</p>
               </div>
             </div>

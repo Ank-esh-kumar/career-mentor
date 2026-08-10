@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Menu, X, Sparkles } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useSubscription } from '../../context/SubscriptionContext';
 import Button from '../ui/Button';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { isAuthenticated } = useAuth();
+  const { isPremium } = useSubscription();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,7 +61,12 @@ export default function Navbar() {
           {/* Right: Actions */}
           <div className="flex-1 flex items-center justify-end gap-1.5 sm:gap-3">
             {isAuthenticated ? (
-              <Button onClick={() => navigate('/dashboard')} className="px-2 sm:px-4 text-xs sm:text-sm">Dashboard</Button>
+              <div className="flex items-center gap-3">
+                {isPremium && (
+                  <span className="hidden sm:inline-flex px-2 py-0.5 rounded text-[10px] font-bold bg-gradient-to-r from-amber-500 to-amber-300 text-black uppercase tracking-wider shrink-0 shadow-sm border border-amber-400">Pro</span>
+                )}
+                <Button onClick={() => navigate('/dashboard')} className="px-2 sm:px-4 text-xs sm:text-sm">Dashboard</Button>
+              </div>
             ) : (
               <>
                 <Button variant="ghost" onClick={() => navigate('/login')} className="hidden sm:inline-flex">Log In</Button>

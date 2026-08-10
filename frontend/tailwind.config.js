@@ -5,22 +5,25 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#2563EB',
-          light: '#3B82F6',
-          lighter: '#60A5FA',
-          dark: '#1D4ED8',
+          DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+          light: 'rgb(var(--color-primary-light) / <alpha-value>)',
+          lighter: 'rgb(var(--color-primary-lighter) / <alpha-value>)',
+          dark: 'rgb(var(--color-primary-dark) / <alpha-value>)',
         },
-        accent: '#38BDF8',
+        accent: 'rgb(var(--color-accent) / <alpha-value>)',
         surface: {
-          DEFAULT: '#0F172A',
-          card: '#1E293B',
-          hover: '#273548',
-          elevated: '#334155',
+          DEFAULT: 'rgb(var(--color-surface) / <alpha-value>)',
+          card: 'rgb(var(--color-surface-card) / <alpha-value>)',
+          hover: 'rgb(var(--color-surface-hover) / <alpha-value>)',
+          elevated: 'rgb(var(--color-surface-elevated) / <alpha-value>)',
         },
         border: {
-          DEFAULT: 'rgba(255,255,255,0.08)',
-          light: 'rgba(255,255,255,0.12)',
+          DEFAULT: 'var(--color-border)',
+          light: 'var(--color-border-light)',
         },
+        // We redefine text colors to support light/dark mode without rewriting all classes
+        'text-main': 'var(--color-text-main)',
+        'text-muted': 'var(--color-text-muted)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
@@ -29,7 +32,7 @@ export default {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'glow-blue': 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(37, 99, 235, 0.08), transparent 40%)',
+        'glow-blue': 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(var(--color-primary) / 0.15), transparent 40%)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',

@@ -3,11 +3,79 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  :root, html.dark {
+    /* Default Dark Mode (Pathway Default) */
+    --color-primary: 37 99 235;        /* #2563EB */
+    --color-primary-light: 59 130 246; /* #3B82F6 */
+    --color-primary-lighter: 96 165 250; /* #60A5FA */
+    --color-primary-dark: 29 78 216;   /* #1D4ED8 */
+    
+    --color-accent: 56 189 248;        /* #38BDF8 */
+    
+    --color-surface: 15 23 42;         /* #0F172A */
+    --color-surface-card: 30 41 59;    /* #1E293B */
+    --color-surface-hover: 39 53 72;   /* #273548 */
+    --color-surface-elevated: 51 65 85; /* #334155 */
+    
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-border-light: rgba(255, 255, 255, 0.12);
+    
+    --color-text-main: #FFFFFF;
+    --color-text-muted: #9CA3AF; /* gray-400 */
+  }
+
+  html.light {
+    /* Light Mode - High Contrast Elegant Palette */
     --color-primary: 37 99 235;
-    --color-accent: 56 189 248;
-    --color-surface: 15 23 42;
-    --color-card: 30 41 59;
+    --color-primary-light: 59 130 246;
+    --color-primary-lighter: 96 165 250;
+    --color-primary-dark: 29 78 216;
+    
+    --color-accent: 14 165 233;
+    
+    --color-surface: 248 250 252;      /* slate-50 */
+    --color-surface-card: 255 255 255; /* pure white */
+    --color-surface-hover: 241 245 249; /* slate-100 */
+    --color-surface-elevated: 255 255 255;
+    
+    --color-border: rgba(15, 23, 42, 0.08);
+    --color-border-light: rgba(15, 23, 42, 0.15);
+    
+    --color-text-main: #0F172A; /* slate-900 */
+    --color-text-muted: #475569; /* slate-600 */
+  }
+
+  /* Pro Themes (Only overrides primary/accent colors) */
+  html[data-theme="pro-emerald"] {
+    --color-primary: 16 185 129;        /* emerald-500 */
+    --color-primary-light: 52 211 153;  /* emerald-400 */
+    --color-primary-lighter: 110 231 183; /* emerald-300 */
+    --color-primary-dark: 4 120 87;     /* emerald-700 */
+    --color-accent: 52 211 153;
+  }
+  
+  html[data-theme="pro-gold"] {
+    --color-primary: 245 158 11;        /* amber-500 */
+    --color-primary-light: 251 191 36;  /* amber-400 */
+    --color-primary-lighter: 252 211 77; /* amber-300 */
+    --color-primary-dark: 180 83 9;     /* amber-700 */
+    --color-accent: 251 191 36;
+  }
+  
+  html[data-theme="pro-rose"] {
+    --color-primary: 225 29 72;         /* rose-600 */
+    --color-primary-light: 244 63 94;   /* rose-500 */
+    --color-primary-lighter: 251 113 133; /* rose-400 */
+    --color-primary-dark: 159 18 57;    /* rose-800 */
+    --color-accent: 244 63 94;
+  }
+  
+  html[data-theme="pro-amethyst"] {
+    --color-primary: 139 92 246;        /* violet-500 */
+    --color-primary-light: 167 139 250; /* violet-400 */
+    --color-primary-lighter: 196 181 253; /* violet-300 */
+    --color-primary-dark: 109 40 217;   /* violet-700 */
+    --color-accent: 167 139 250;
   }
 
   * {
@@ -29,36 +97,72 @@
   }
 
   body {
+    background-color: rgb(var(--color-surface));
+    color: var(--color-text-main);
     overflow-x: hidden;
   }
 
+  /* Automatically map hardcoded dark-mode text colors to light mode variables */
+  html.light .text-white,
+  html.light .text-gray-100,
+  html.light .text-gray-200 { color: var(--color-text-main) !important; }
+  
+  html.light .text-gray-300,
+  html.light .text-gray-400,
+  html.light .text-gray-500,
+  html.light .text-gray-600 { color: var(--color-text-muted) !important; }
+  
+  /* Ensure primary buttons retain white text in light mode */
+  html.light .btn-primary,
+  html.light .btn-danger { color: #FFFFFF !important; }
+  
+  html.light .bg-white\/5 { background-color: rgba(0,0,0,0.03) !important; }
+  html.light .bg-white\/10 { background-color: rgba(0,0,0,0.06) !important; }
+  html.light .bg-white\/20 { background-color: rgba(0,0,0,0.1) !important; }
+  
+  html.light .border-white\/5 { border-color: rgba(0,0,0,0.05) !important; }
+  html.light .border-white\/10 { border-color: rgba(0,0,0,0.1) !important; }
+  html.light .border-white\/20 { border-color: rgba(0,0,0,0.15) !important; }
+  
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 30px #1E293B inset !important;
-    -webkit-text-fill-color: #F8FAFC !important;
-    caret-color: #F8FAFC;
+    -webkit-box-shadow: 0 0 0 30px rgb(var(--color-surface)) inset !important;
+    -webkit-text-fill-color: var(--color-text-main) !important;
+    caret-color: var(--color-text-main);
   }
 }
 
 @layer components {
   .glass {
-    background: rgba(30, 41, 59, 0.6);
+    background: rgb(var(--color-surface-card) / 0.6);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--color-border);
+  }
+  html.light .glass {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.05);
   }
 
   .glass-hover:hover {
-    background: rgba(30, 41, 59, 0.8);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: rgb(var(--color-surface-card) / 0.8);
+    border-color: var(--color-border-light);
+  }
+  html.light .glass-hover:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 10px 25px -3px rgba(15, 23, 42, 0.1);
   }
 
   .glass-strong {
-    background: rgba(30, 41, 59, 0.85);
+    background: rgb(var(--color-surface-card) / 0.85);
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-border-light);
+  }
+  html.light .glass-strong {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 30px -4px rgba(15, 23, 42, 0.08);
   }
 
   .gradient-text {
@@ -108,6 +212,12 @@
   .card {
     @apply bg-surface-card rounded-2xl border border-border p-6 
            transition-all duration-300 ease-out hover:border-border-light hover:shadow-card;
+  }
+  html.light .card {
+    box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03), 0 2px 4px -1px rgba(15, 23, 42, 0.02);
+  }
+  html.light .card:hover {
+    box-shadow: 0 12px 20px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
   }
 
   .card-glass {

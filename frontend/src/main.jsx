@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './context/AuthContext';
 import { SubscriptionProvider } from './context/SubscriptionContext';
+import { ThemeProvider } from './context/ThemeContext';
 import App from './App';
 import './index.css';
 
@@ -16,9 +17,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AuthProvider>
           <SubscriptionProvider>
-            <App />
-            <Toaster
-              position="top-right"
+            <ThemeProvider>
+              <App />
+              <Toaster
+                position="top-right"
               toastOptions={{
                 duration: 4000,
                 style: {
@@ -36,6 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 },
               }}
             />
+            </ThemeProvider>
           </SubscriptionProvider>
         </AuthProvider>
       </BrowserRouter>

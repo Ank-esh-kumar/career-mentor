@@ -1,15 +1,21 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Settings, Bell, Shield, Lock, Trash2, Eye, EyeOff } from 'lucide-react';
+import { Settings, Bell, Shield, Lock, Trash2, Eye, EyeOff, Palette, Moon, Sun, Monitor, Crown } from 'lucide-react';
 import { settingsAPI } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
+import { useSubscription } from '../../context/SubscriptionContext';
+import PremiumModal from '../../components/ui/PremiumModal';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 export default function SettingsPage() {
-  const [tab, setTab] = useState('notifications');
+  const { mode, setMode, proTheme, setProTheme } = useTheme();
+  const { isPremium } = useSubscription();
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
+  const [tab, setTab] = useState('appearance');
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -58,6 +64,7 @@ export default function SettingsPage() {
   };
 
   const tabs = [
+    { id: 'appearance', label: 'Appearance', icon: Palette },
     { id: 'notifications', label: 'Notifications', icon: Bell },
     { id: 'security', label: 'Security', icon: Lock },
     { id: 'privacy', label: 'Privacy', icon: Shield },
@@ -83,6 +90,58 @@ export default function SettingsPage() {
           </button>
         ))}
       </div>
+
+      {/* Appearance */}
+      {tab === 'appearance' && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
+          <div className="card space-y-4">
+            <h3 className="text-lg font-semibold text-white">Theme Mode</h3>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { id: 'system', icon: Monitor, label: 'System' },
+                { id: 'light', icon: Sun, label: 'Light' },
+                { id: 'dark', icon: Moon, label: 'Dark' }
+              ].map(t => (
+                <button key={t.id} onClick={() => setMode(t.id)} className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${mode === t.id ? 'bg-primary/10 border-primary text-primary-lighter' : 'bg-surface/50 border-white/5 text-gray-400 hover:text-white'}`}>
+                  <t.icon size={24} />
+                  <span className="text-sm font-medium">{t.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="card space-y-4 relative overflow-hidden">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                Pro Themes {isPremium && <Crown size={18} className="text-amber-400" />}
+              </h3>
+              {!isPremium && <span className="px-2 py-0.5 rounded text-xs font-bold bg-amber-500/20 text-amber-400 uppercase border border-amber-500/30">Premium</span>}
+            </div>
+            <p className="text-sm text-gray-400">Exclusive color schemes for Career Mentor Pro members.</p>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {[
+                { id: 'default', label: 'Pathway', bg: 'bg-blue-600' },
+                { id: 'pro-emerald', label: 'Emerald', bg: 'bg-emerald-500' },
+                { id: 'pro-gold', label: 'Gold', bg: 'bg-amber-500' },
+                { id: 'pro-rose', label: 'Rose', bg: 'bg-rose-500' },
+                { id: 'pro-amethyst', label: 'Amethyst', bg: 'bg-violet-500' }
+              ].map(t => (
+                <button key={t.id} onClick={() => isPremium ? setProTheme(t.id) : setShowPremiumModal(true)} 
+                  className={`relative flex flex-col items-center justify-center h-20 gap-2 rounded-xl border transition-all 
+                  ${proTheme === t.id && isPremium ? 'border-primary ring-2 ring-primary/30' : 'border-white/5 hover:border-white/20 bg-surface/50'}
+                  ${!isPremium && t.id !== 'default' ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}>
+                  <div className={`w-6 h-6 rounded-full ${t.bg} shadow-lg`} />
+                  <span className="text-xs font-medium text-gray-300">{t.label}</span>
+                  {!isPremium && t.id !== 'default' && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-xl backdrop-blur-[1px]">
+                      <Lock size={16} className="text-white" />
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       {/* Notifications */}
       {tab === 'notifications' && (
@@ -155,6 +214,8 @@ export default function SettingsPage() {
           <Button variant="danger" icon={Trash2} onClick={handleDeleteAccount}>Delete My Account</Button>
         </motion.div>
       )}
+
+      <PremiumModal isOpen={showPremiumModal} onClose={() => setShowPremiumModal(false)} />
     </div>
   );
 }
