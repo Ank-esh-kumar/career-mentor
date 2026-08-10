@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, Crown, Sparkles, X, Check, Zap, Shield, BarChart3, FileText } from 'lucide-react';
 import { useSubscription } from '../../context/SubscriptionContext';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 
 const PRO_FEATURES = [
   { icon: FileText, label: 'Ultimate ATS Resume Builder', desc: 'AI-powered resume generation optimized for ATS' },

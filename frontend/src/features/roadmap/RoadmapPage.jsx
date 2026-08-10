@@ -5,7 +5,7 @@ import { roadmapAPI } from '../../services/api';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import EmptyState from '../../components/ui/EmptyState';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 
 import DynamicLoader from '../../components/ui/DynamicLoader';
 

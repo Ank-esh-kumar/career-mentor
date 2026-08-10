@@ -7,7 +7,7 @@ import { analyticsAPI } from '../../services/api';
 import { CircularProgress } from '../../components/ui/Progress';
 import Progress from '../../components/ui/Progress';
 import { SkeletonDashboard } from '../../components/ui/Skeleton';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 
 export default function DashboardPage() {
   const { user } = useAuth();

@@ -5,6 +5,7 @@ import { Menu, X, Sparkles } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useSubscription } from '../../context/SubscriptionContext';
 import Button from '../ui/Button';
+import ThemeToggle from '../ui/ThemeToggle';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -60,6 +61,7 @@ export default function Navbar() {
 
           {/* Right: Actions */}
           <div className="flex-1 flex items-center justify-end gap-1.5 sm:gap-3">
+            <ThemeToggle />
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 {isPremium && (

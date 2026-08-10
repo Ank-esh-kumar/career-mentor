@@ -8,7 +8,7 @@ import { useSubscription } from '../../context/SubscriptionContext';
 import PremiumModal from '../../components/ui/PremiumModal';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 import { useNavigate } from 'react-router-dom';
 
 export default function SettingsPage() {

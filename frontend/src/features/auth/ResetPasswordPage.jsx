@@ -6,7 +6,7 @@ import { Lock, Eye, EyeOff } from 'lucide-react';
 import { authAPI } from '../../services/api';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 
 export default function ResetPasswordPage() {
   const [showPassword, setShowPassword] = useState(false);

@@ -4,7 +4,7 @@ import { Bookmark, Trash2, ChevronDown, ChevronUp, Briefcase, TrendingUp, Buildi
 import { careerAPI, resumeAPI } from '../../services/api';
 import EmptyState from '../../components/ui/EmptyState';
 import { CircularProgress } from '../../components/ui/Progress';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 
 export default function SavedCareersPage() {
   const [careers, setCareers] = useState([]);

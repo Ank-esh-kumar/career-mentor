@@ -7,7 +7,7 @@ import Badge from '../../components/ui/Badge';
 import Modal from '../../components/ui/Modal';
 import { CircularProgress } from '../../components/ui/Progress';
 import EmptyState from '../../components/ui/EmptyState';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 import DynamicLoader from '../../components/ui/DynamicLoader';
 
 export default function CareerRecommendationPage() {

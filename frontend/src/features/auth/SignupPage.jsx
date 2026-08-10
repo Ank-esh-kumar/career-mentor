@@ -7,7 +7,7 @@ import { Mail, Lock, User, Eye, EyeOff, Sparkles, ArrowLeft } from 'lucide-react
 import { useAuth } from '../../context/AuthContext';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);

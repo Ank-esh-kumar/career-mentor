@@ -7,7 +7,7 @@ import Input from '../../components/ui/Input';
 import Badge from '../../components/ui/Badge';
 import Progress from '../../components/ui/Progress';
 import EmptyState from '../../components/ui/EmptyState';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 
 export default function SkillGapPage() {
   const [analysis, setAnalysis] = useState(null);

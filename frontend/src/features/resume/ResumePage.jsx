@@ -9,7 +9,7 @@ import Badge from '../../components/ui/Badge';
 import Progress from '../../components/ui/Progress';
 import { CircularProgress } from '../../components/ui/Progress';
 import EmptyState from '../../components/ui/EmptyState';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 import { useSubscription } from '../../context/SubscriptionContext';
 import PremiumModal from '../../components/ui/PremiumModal';
 

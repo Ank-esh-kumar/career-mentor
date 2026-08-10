@@ -6,6 +6,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './context/AuthContext';
 import { SubscriptionProvider } from './context/SubscriptionContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { NotificationProvider } from './context/NotificationContext';
 import App from './App';
 import './index.css';
 
@@ -18,8 +19,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <AuthProvider>
           <SubscriptionProvider>
             <ThemeProvider>
-              <App />
-              <Toaster
+              <NotificationProvider>
+                <App />
+                <Toaster
                 position="top-right"
               toastOptions={{
                 duration: 4000,
@@ -38,6 +40,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 },
               }}
             />
+              </NotificationProvider>
             </ThemeProvider>
           </SubscriptionProvider>
         </AuthProvider>

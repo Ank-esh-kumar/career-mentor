@@ -6,7 +6,7 @@ import { profileAPI } from '../../services/api';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import Progress from '../../components/ui/Progress';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);

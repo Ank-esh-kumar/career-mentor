@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { Menu, Bell, Sparkles } from 'lucide-react';
+import { Menu, Sparkles } from 'lucide-react';
 import Sidebar from './Sidebar';
 import ChatWidget from '../../features/chat/ChatWidget';
+import NotificationsDropdown from './NotificationsDropdown';
 
 export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -40,10 +41,7 @@ export default function DashboardLayout() {
           </Link>
 
           <div className="flex items-center gap-3 ml-auto">
-            <button className="p-2 hover:bg-white/5 rounded-lg relative" aria-label="Notifications">
-              <Bell size={20} className="text-gray-400" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full" />
-            </button>
+            <NotificationsDropdown />
           </div>
         </header>
 

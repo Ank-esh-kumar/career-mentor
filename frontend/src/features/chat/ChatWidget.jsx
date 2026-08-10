@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, Trash2, Sparkles } from 'lucide-react';
 import { chatAPI } from '../../services/api';
 import ReactMarkdown from 'react-markdown';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);

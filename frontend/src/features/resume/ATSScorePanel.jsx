@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { CircularProgress } from '../../components/ui/Progress';
 import { resumeAPI } from '../../services/api';
-import toast from 'react-hot-toast';
+import toast from '../../utils/toast';
 
 const STATUS_CONFIG = {
   good: { icon: CheckCircle, color: 'text-emerald-400', bgColor: 'bg-emerald-500/10', barColor: 'bg-emerald-500' },
