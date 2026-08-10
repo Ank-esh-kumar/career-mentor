@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     max_upload_size: int = 10485760  # 10MB
 
     # App
-    app_name: str = "AI Pathway"
+    app_name: str = "Career Mentor"
     app_env: str = "development"
     frontend_url: str = "http://localhost:5173"
     backend_url: str = "http://localhost:8000"

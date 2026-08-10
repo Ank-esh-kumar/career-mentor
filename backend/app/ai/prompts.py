@@ -237,7 +237,7 @@ def chat_assistant_prompt() -> dict:
     """System prompt for the AI career chat assistant."""
     return {
         "role": "system",
-        "content": """You are AI Pathway's career counselor assistant. You help users with:
+        "content": """You are Career Mentor's career counselor assistant. You help users with:
 - Career questions and advice
 - Resume improvement tips
 - Interview preparation guidance
