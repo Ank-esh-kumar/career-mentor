@@ -44,7 +44,7 @@ export default function ResumeBuilderPage() {
   const printRef = useRef();
   
   const handlePrint = useReactToPrint({
-    content: () => printRef.current,
+    contentRef: printRef,
     documentTitle: 'ATS_Resume',
   });
 

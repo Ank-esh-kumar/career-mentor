@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        # These need to be provided during the build process so Vite bakes them into the static files
+        - VITE_API_URL=${VITE_API_URL:-http://localhost:8000}
+        - VITE_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - pathway-network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    # Overriding the CMD to remove the --reload flag for production
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+    depends_on:
+      - chromadb
+    volumes:
+      - ./backend:/app
+      - backend-uploads:/app/uploads
+    networks:
+      - pathway-network
+    restart: unless-stopped
+
+  chromadb:
+    image: chromadb/chroma:latest
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+    environment:
+      - ANONYMIZED_TELEMETRY=false
+    networks:
+      - pathway-network
+    restart: unless-stopped
+
+volumes:
+  chroma-data:
+  backend-uploads:
+
+networks:
+  pathway-network:
+    driver: bridge
