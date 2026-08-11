@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, Wand2, Download, CheckCircle, Save, ArrowLeft, RefreshCw, Briefcase, Award, ZoomIn, ZoomOut, Plus, Trash2, Crown, Sparkles } from 'lucide-react';
-import { useReactToPrint } from 'react-to-print';
+import html2pdf from 'html2pdf.js/dist/html2pdf.min.js';
 import { useNavigate } from 'react-router-dom';
 import { resumeAPI } from '../../services/api';
 import Button from '../../components/ui/Button';
@@ -43,10 +43,20 @@ export default function ResumeBuilderPage() {
   // Print Reference
   const printRef = useRef();
   
-  const handlePrint = useReactToPrint({
-    contentRef: printRef,
-    documentTitle: 'ATS_Resume',
-  });
+  const handlePrint = () => {
+    const element = printRef.current;
+    if (!element) return;
+    
+    const opt = {
+      margin: 0,
+      filename: 'ATS_Resume.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    
+    html2pdf().set(opt).from(element).save();
+  };
 
   useEffect(() => {
     // Only check base resume if premium, otherwise the page is locked anyway

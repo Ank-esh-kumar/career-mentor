@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, Crown, Sparkles, X, Check, Zap, Shield, BarChart3, FileText } from 'lucide-react';
+import { Lock, Crown, Sparkles, X, Check, Zap, Shield, BarChart3, FileText, Key } from 'lucide-react';
 import { useSubscription } from '../../context/SubscriptionContext';
 import toast from '../../utils/toast';
 
@@ -16,12 +16,26 @@ const PRO_FEATURES = [
 export default function PremiumModal({ isOpen, onClose, featureName = 'this feature' }) {
   const { activate } = useSubscription();
   const [activating, setActivating] = useState(false);
+  const [showKeyInput, setShowKeyInput] = useState(false);
+  const [activationKey, setActivationKey] = useState('');
 
   const handleActivate = async () => {
+    if (!showKeyInput) {
+      setShowKeyInput(true);
+      return;
+    }
+
+    if (activationKey !== 'Ankesh') {
+      toast.error('Invalid activation key');
+      return;
+    }
+
     setActivating(true);
     try {
       await activate();
       toast.success('🎉 Pro subscription activated! Enjoy premium features.');
+      setShowKeyInput(false);
+      setActivationKey('');
       onClose();
     } catch (err) {
       toast.error(err.response?.data?.detail || 'Failed to activate subscription');
@@ -118,6 +132,32 @@ export default function PremiumModal({ isOpen, onClose, featureName = 'this feat
                   </div>
                   <p className="text-xs text-emerald-400 font-medium">✨ Free trial — activate instantly</p>
                 </div>
+
+                <AnimatePresence>
+                  {showKeyInput && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                      animate={{ opacity: 1, height: 'auto', marginBottom: 24 }}
+                      exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Key size={16} className="text-gray-400" />
+                        </div>
+                        <input
+                          type="text"
+                          value={activationKey}
+                          onChange={(e) => setActivationKey(e.target.value)}
+                          placeholder="Enter Activation Key"
+                          className="w-full pl-10 pr-4 py-3 bg-white/[0.03] border border-white/[0.1] rounded-xl text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-amber-500/50 transition-colors"
+                          autoFocus
+                          onKeyDown={(e) => e.key === 'Enter' && handleActivate()}
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {/* CTA Buttons */}
                 <div className="space-y-3">
