@@ -21,11 +21,11 @@ async def update_profile(user_id: str, data: dict) -> dict:
     """Update user profile."""
     db = get_database()
 
-    # Remove None values
+
     update_data = {k: v for k, v in data.items() if v is not None}
     update_data["updated_at"] = datetime.now(timezone.utc)
 
-    # Calculate profile completion
+
     current = await db.profiles.find_one({"user_id": user_id})
     if current:
         merged = {**current, **update_data}
@@ -37,14 +37,14 @@ async def update_profile(user_id: str, data: dict) -> dict:
         upsert=True,
     )
 
-    # Also update user's full_name if provided
+
     if "full_name" in update_data:
         await db.users.update_one(
             {"_id": ObjectId(user_id)},
             {"$set": {"full_name": update_data["full_name"], "updated_at": datetime.now(timezone.utc)}},
         )
 
-    # Log activity
+
     await db.activities.insert_one({
         "user_id": user_id,
         "type": "profile_update",

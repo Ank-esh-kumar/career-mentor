@@ -25,7 +25,7 @@ async def send_message(
     if not message:
         raise HTTPException(status_code=400, detail="Message is required")
 
-    # Get conversation history (last 10 messages)
+
     history = []
     cursor = db.chat_messages.find(
         {"user_id": current_user["id"], "conversation_id": conversation_id}
@@ -34,12 +34,12 @@ async def send_message(
     async for msg in cursor:
         history.append({"role": msg["role"], "content": msg["content"]})
 
-    # Build messages with system prompt
+
     messages = [chat_assistant_prompt()]
     messages.extend(history)
     messages.append({"role": "user", "content": message})
 
-    # Save user message
+
     await db.chat_messages.insert_one({
         "user_id": current_user["id"],
         "conversation_id": conversation_id,
@@ -49,10 +49,10 @@ async def send_message(
     })
 
     try:
-        # Generate response
+
         response = await openrouter_client.chat_completion(messages, temperature=0.7)
 
-        # Save assistant response
+
         await db.chat_messages.insert_one({
             "user_id": current_user["id"],
             "conversation_id": conversation_id,
@@ -110,7 +110,7 @@ async def send_message_stream(
             full_response += chunk
             yield f"data: {json.dumps({'content': chunk})}\n\n"
 
-        # Save complete response
+
         await db.chat_messages.insert_one({
             "user_id": current_user["id"],
             "conversation_id": conversation_id,

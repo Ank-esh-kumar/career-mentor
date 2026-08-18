@@ -67,7 +67,7 @@ async def save_profile_photo(upload_file: UploadFile, user_id: str) -> str:
         raise ValueError("Unsupported image type. Allowed: JPEG, PNG, WebP, GIF")
 
     content = await upload_file.read()
-    if len(content) > 5 * 1024 * 1024:  # 5MB limit for photos
+    if len(content) > 5 * 1024 * 1024:
         raise ValueError("Photo too large. Maximum size: 5MB")
 
     ext_map = {

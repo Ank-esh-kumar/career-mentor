@@ -1,4 +1,4 @@
-import chromadb # type: ignore
+import chromadb
 from typing import List, Optional, Dict, Any
 from app.config import settings
 
@@ -17,15 +17,15 @@ class ChromaDBClient:
                 host=settings.chroma_host,
                 port=settings.chroma_port,
             )
-            # Test connection
+
             self._client.heartbeat()
             print(f"Connected to ChromaDB at {settings.chroma_host}:{settings.chroma_port}")
         except Exception:
-            # Fallback to persistent local client
+
             self._client = chromadb.PersistentClient(path="./chroma_data")
             print("Using local ChromaDB (persistent)")
 
-        # Initialize collections
+
         self._collections["resumes"] = self._client.get_or_create_collection(
             name="resumes",
             metadata={"description": "Resume embeddings for RAG"},
@@ -103,5 +103,5 @@ class ChromaDBClient:
         )
 
 
-# Singleton
+
 chromadb_client = ChromaDBClient()

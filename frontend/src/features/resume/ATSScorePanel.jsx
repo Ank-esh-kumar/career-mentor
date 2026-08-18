@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ChevronDown, ChevronRight, CheckCircle, AlertTriangle, XCircle, 
-  TrendingUp, TrendingDown, Minus, Zap, Sparkles 
+import {
+  ChevronDown, ChevronRight, CheckCircle, AlertTriangle, XCircle,
+  TrendingUp, TrendingDown, Minus, Zap, Sparkles
 } from 'lucide-react';
 import { CircularProgress } from '../../components/ui/Progress';
 import { resumeAPI } from '../../services/api';
@@ -117,9 +117,9 @@ export default function ATSScorePanel({ scoreData, draft, targetRole, onAutoFix 
     if (!draft) return;
     setDeepScanning(true);
     try {
-      const res = await resumeAPI.atsEvaluate({ 
-        content: draft, 
-        target_role: targetRole || '' 
+      const res = await resumeAPI.atsEvaluate({
+        content: draft,
+        target_role: targetRole || ''
       });
       toast.success(`Deep ATS Scan Complete! Overall: ${res.data.overall_score}/100`);
     } catch (err) {
@@ -151,8 +151,8 @@ export default function ATSScorePanel({ scoreData, draft, targetRole, onAutoFix 
 
   return (
     <div className="h-full flex flex-col bg-surface/50 border border-border rounded-2xl overflow-hidden">
-      
-      {/* Header */}
+
+      {}
       <div className="p-4 border-b border-border bg-white/[0.02]">
         <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider flex items-center gap-2">
           <Zap size={14} className="text-primary" />
@@ -161,8 +161,8 @@ export default function ATSScorePanel({ scoreData, draft, targetRole, onAutoFix 
       </div>
 
       <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-5">
-        
-        {/* Overall Score Gauge */}
+
+        {}
         <div className="flex flex-col items-center py-2 relative">
           <div className="relative">
             <CircularProgress value={overall} size={100} strokeWidth={6} color={scoreColor} />
@@ -173,8 +173,8 @@ export default function ATSScorePanel({ scoreData, draft, targetRole, onAutoFix 
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.8 }}
                   className={`absolute -top-2 -right-2 px-2 py-0.5 rounded-full text-xs font-bold flex items-center gap-0.5 ${
-                    scoreDelta > 0 
-                      ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+                    scoreDelta > 0
+                      ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                       : 'bg-red-500/20 text-red-400 border border-red-500/30'
                   }`}
                 >
@@ -188,7 +188,7 @@ export default function ATSScorePanel({ scoreData, draft, targetRole, onAutoFix 
           <p className="text-[10px] text-gray-500 mt-0.5">ATS Compatibility</p>
         </div>
 
-        {/* Section Breakdown */}
+        {}
         <div className="space-y-2">
           <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Section Scores</h4>
           {Object.entries(sections).map(([key, data]) => (
@@ -196,7 +196,7 @@ export default function ATSScorePanel({ scoreData, draft, targetRole, onAutoFix 
           ))}
         </div>
 
-        {/* Top Improvements */}
+        {}
         {allTips.length > 0 && (
           <div className="space-y-2">
             <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
@@ -219,7 +219,7 @@ export default function ATSScorePanel({ scoreData, draft, targetRole, onAutoFix 
           </div>
         )}
 
-        {/* Action Buttons */}
+        {}
         <div className="flex gap-2 pt-2">
           <button
             onClick={handleDeepScan}
@@ -235,7 +235,7 @@ export default function ATSScorePanel({ scoreData, draft, targetRole, onAutoFix 
             )}
             Deep Scan
           </button>
-          
+
           <button
             onClick={handleAutoFixClick}
             disabled={autoFixing || deepScanning || allTips.length === 0}

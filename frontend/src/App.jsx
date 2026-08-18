@@ -4,7 +4,7 @@ import DashboardLayout from './components/layout/DashboardLayout';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import { NotFoundPage } from './features/errors/ErrorPages';
 
-// Lazy-loaded pages
+
 const LandingPage = lazy(() => import('./features/landing/LandingPage'));
 const LoginPage = lazy(() => import('./features/auth/LoginPage'));
 const SignupPage = lazy(() => import('./features/auth/SignupPage'));
@@ -36,14 +36,14 @@ export default function App() {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
-        {/* Public routes */}
+        {}
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-        {/* Protected routes */}
+        {}
         <Route
           element={
             <ProtectedRoute>
@@ -63,7 +63,7 @@ export default function App() {
           <Route path="/settings" element={<SettingsPage />} />
         </Route>
 
-        {/* 404 */}
+        {}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>

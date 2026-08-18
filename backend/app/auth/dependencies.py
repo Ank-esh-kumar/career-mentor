@@ -74,17 +74,17 @@ async def require_premium(
     """Require that the current user has an active Pro subscription."""
     plan = current_user.get("subscription_plan", "free")
 
-    # Check if subscription has expired
+
     if plan == "pro":
         from datetime import datetime, timezone
         expires_at = current_user.get("subscription_expires_at")
         if expires_at and isinstance(expires_at, datetime):
-            # Ensure expires_at is timezone-aware
+
             if expires_at.tzinfo is None:
                 expires_at = expires_at.replace(tzinfo=timezone.utc)
-                
+
             if expires_at < datetime.now(timezone.utc):
-                # Expired — downgrade in DB
+
                 db = get_database()
                 from bson import ObjectId
                 await db.users.update_one(

@@ -49,7 +49,7 @@ export default function LoginPage() {
       <Link to="/" className="absolute top-6 left-6 z-50 p-2 bg-surface-card/50 hover:bg-surface-card border border-border rounded-full text-gray-400 hover:text-white transition-all backdrop-blur-md">
         <ArrowLeft size={20} />
       </Link>
-      {/* Left side — branding */}
+      {}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-surface to-surface" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
@@ -70,7 +70,7 @@ export default function LoginPage() {
         </motion.div>
       </div>
 
-      {/* Right side — form */}
+      {}
       <div className="flex-1 flex items-center justify-center p-6 md:p-12">
         <motion.div
           initial={{ opacity: 0, x: 20 }}
@@ -87,7 +87,7 @@ export default function LoginPage() {
             <h2 className="text-3xl font-bold font-display text-white mb-2">Welcome back</h2>
             <p className="text-gray-400">Log in to continue your career journey</p>
           </div>
-          {/* Google — uses credential (ID token) flow */}
+          {}
           {import.meta.env.VITE_GOOGLE_CLIENT_ID && import.meta.env.VITE_GOOGLE_CLIENT_ID !== 'your-google-client-id.apps.googleusercontent.com' && (
             <>
               <div className="flex justify-center mb-6 w-full">

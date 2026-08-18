@@ -6,19 +6,19 @@ const ThemeContext = createContext(null);
 export function ThemeProvider({ children }) {
   const { isPremium, loading } = useSubscription();
 
-  // Mode: 'light', 'dark', 'system'
+
   const [mode, setMode] = useState(() => {
     return localStorage.getItem('app-mode') || 'system';
   });
 
-  // Pro Theme: 'default', 'pro-emerald', 'pro-gold', 'pro-rose', 'pro-amethyst'
+
   const [proTheme, setProTheme] = useState(() => {
     return localStorage.getItem('app-pro-theme') || 'default';
   });
 
   useEffect(() => {
     localStorage.setItem('app-mode', mode);
-    
+
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
 

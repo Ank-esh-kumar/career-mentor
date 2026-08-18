@@ -8,7 +8,7 @@ export default function NotificationsDropdown() {
   const dropdownRef = useRef(null);
   const { notifications, unreadCount, markAsRead, markAllAsRead, clearNotifications } = useNotifications();
 
-  // Close dropdown when clicking outside
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -31,20 +31,20 @@ export default function NotificationsDropdown() {
     const date = new Date(isoString);
     const now = new Date();
     const diff = now - date;
-    
-    // less than a minute
+
+
     if (diff < 60000) return 'Just now';
-    // less than an hour
+
     if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
-    // less than a day
+
     if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
-    
+
     return date.toLocaleDateString();
   };
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className={`p-2 rounded-lg relative transition-colors ${isOpen ? 'bg-white/10' : 'hover:bg-white/5'}`}
         aria-label="Notifications"
@@ -64,7 +64,7 @@ export default function NotificationsDropdown() {
             transition={{ duration: 0.2 }}
             className="absolute right-0 mt-2 w-80 sm:w-96 glass-strong rounded-2xl shadow-2xl border border-white/10 overflow-hidden z-50 flex flex-col max-h-[85vh]"
           >
-            {/* Header */}
+            {}
             <div className="flex items-center justify-between p-4 border-b border-white/10 bg-surface/40 backdrop-blur-md">
               <h3 className="font-semibold text-white flex items-center gap-2">
                 Notifications
@@ -76,7 +76,7 @@ export default function NotificationsDropdown() {
               </h3>
               <div className="flex items-center gap-1">
                 {unreadCount > 0 && (
-                  <button 
+                  <button
                     onClick={markAllAsRead}
                     className="p-1.5 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
                     title="Mark all as read"
@@ -85,7 +85,7 @@ export default function NotificationsDropdown() {
                   </button>
                 )}
                 {notifications.length > 0 && (
-                  <button 
+                  <button
                     onClick={clearNotifications}
                     className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
                     title="Clear all"
@@ -96,7 +96,7 @@ export default function NotificationsDropdown() {
               </div>
             </div>
 
-            {/* List */}
+            {}
             <div className="overflow-y-auto custom-scrollbar flex-1 bg-surface-card/30">
               {notifications.length === 0 ? (
                 <div className="p-8 text-center flex flex-col items-center justify-center">
@@ -108,8 +108,8 @@ export default function NotificationsDropdown() {
               ) : (
                 <div className="divide-y divide-white/5">
                   {notifications.map((n) => (
-                    <div 
-                      key={n.id} 
+                    <div
+                      key={n.id}
                       onClick={() => !n.read && markAsRead(n.id)}
                       className={`p-4 flex gap-3 cursor-pointer transition-colors ${!n.read ? 'bg-primary/5 hover:bg-primary/10' : 'hover:bg-white/5'}`}
                     >

@@ -6,7 +6,7 @@ from app.ai.openrouter import openrouter_client
 
 async def store_resume_embedding(user_id: str, resume_text: str, metadata: dict = None):
     """Store resume text in ChromaDB for retrieval."""
-    # Chunk the resume into smaller pieces for better retrieval
+
     chunks = chunk_text(resume_text, chunk_size=500, overlap=50)
 
     documents = []
@@ -23,7 +23,7 @@ async def store_resume_embedding(user_id: str, resume_text: str, metadata: dict 
             **(metadata or {}),
         })
 
-    # Delete existing embeddings for this user
+
     try:
         existing = chromadb_client.query("resumes", f"user:{user_id}", n_results=100)
         if existing and existing.get("ids") and existing["ids"][0]:
@@ -31,7 +31,7 @@ async def store_resume_embedding(user_id: str, resume_text: str, metadata: dict 
     except Exception:
         pass
 
-    # Store new embeddings
+
     chromadb_client.upsert_documents(
         collection_name="resumes",
         documents=documents,
@@ -65,10 +65,10 @@ async def rag_query(
     n_results: int = 3,
 ) -> str:
     """Execute a RAG query: retrieve context, augment prompt, generate response."""
-    # Retrieve relevant context
+
     context = await retrieve_context(query, collection, n_results)
 
-    # Augment the last user message with context
+
     if context and messages:
         augmented_messages = messages.copy()
         last_msg = augmented_messages[-1]
@@ -79,7 +79,7 @@ async def rag_query(
             }
         messages = augmented_messages
 
-    # Generate response
+
     response = await openrouter_client.chat_completion(messages)
     return response
 

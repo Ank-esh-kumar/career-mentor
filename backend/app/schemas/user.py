@@ -15,7 +15,7 @@ class UserLogin(BaseModel):
 
 
 class GoogleAuthRequest(BaseModel):
-    credential: str  # Google ID token
+    credential: str
 
 
 class ForgotPasswordRequest(BaseModel):

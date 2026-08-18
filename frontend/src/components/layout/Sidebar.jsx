@@ -31,7 +31,7 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
 
   return (
     <>
-      {/* Mobile overlay */}
+      {}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -44,14 +44,14 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
         )}
       </AnimatePresence>
 
-      {/* Sidebar */}
+      {}
       <aside
         className={`fixed top-0 left-0 z-50 h-full bg-surface-card/70 backdrop-blur-2xl border-r border-white/5 shadow-2xl
           transition-all duration-300 flex flex-col
           ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
           ${collapsed ? 'w-[72px]' : 'w-[260px]'}`}
       >
-        {/* Elegant Floating Toggle Button (Desktop Only) */}
+        {}
         <button
           onClick={onToggleCollapse}
           className="absolute -right-3 top-6 w-6 h-6 bg-surface border border-white/10 hover:bg-surface-card hover:border-primary/50 rounded-full hidden lg:flex items-center justify-center z-50 shadow-[0_0_15px_rgba(0,0,0,0.5)] transition-all duration-300 hover:scale-110 group"
@@ -60,12 +60,12 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
           <ChevronLeft size={14} className={`text-gray-400 group-hover:text-primary-lighter transition-transform duration-300 ${collapsed ? 'rotate-180' : ''}`} />
         </button>
 
-        {/* Mobile Close Button */}
+        {}
         <button onClick={onClose} className="absolute top-4 right-4 p-2 hover:bg-white/5 rounded-lg lg:hidden z-50 transition-colors">
           <X size={20} className="text-gray-400 hover:text-white" />
         </button>
 
-        {/* User info (Padded elegantly at the top) */}
+        {}
         {!collapsed && user ? (
           <div className="px-5 pt-8 pb-6">
             <div className="flex items-center gap-3">
@@ -84,11 +84,10 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
             </div>
           </div>
         ) : (
-          /* Spacer when collapsed to align navigation */
-          <div className="h-[92px] hidden lg:block" />
+                    <div className="h-[92px] hidden lg:block" />
         )}
 
-        {/* Navigation */}
+        {}
         <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-1.5 custom-scrollbar">
           {navItems.map(({ path, label, icon: Icon }) => (
             <NavLink
@@ -106,25 +105,25 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
             >
               {({ isActive }) => (
                 <>
-                  {/* Active Indicator Bar */}
+                  {}
                   {isActive && (
-                    <motion.div 
+                    <motion.div
                       layoutId="sidebar-active-indicator"
                       className="absolute left-0 top-1/4 bottom-1/4 w-1 bg-gradient-to-b from-primary to-accent rounded-r-full shadow-[0_0_10px_rgba(var(--color-primary),0.6)]"
                     />
                   )}
-                  
+
                   <div className={`relative z-10 flex items-center justify-center transition-transform duration-300 ${!collapsed && 'group-hover:translate-x-1'} ${isActive ? 'text-primary-lighter' : 'group-hover:text-gray-200'}`}>
                     <Icon size={20} className={`shrink-0 transition-all duration-300 ${isActive ? 'drop-shadow-[0_0_8px_rgba(var(--color-primary),0.5)]' : 'group-hover:scale-110'}`} />
                   </div>
-                  
+
                   {!collapsed && (
                     <span className={`relative z-10 transition-transform duration-300 group-hover:translate-x-1 ${isActive ? 'font-semibold tracking-wide' : ''}`}>
                       {label}
                     </span>
                   )}
-                  
-                  {/* Soft hover glow effect behind text */}
+
+                  {}
                   {!isActive && !collapsed && (
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out pointer-events-none" />
                   )}
@@ -134,11 +133,11 @@ export default function Sidebar({ isOpen, onClose, collapsed, onToggleCollapse }
           ))}
         </nav>
 
-        {/* Logout */}
+        {}
         <div className="p-3 border-t border-white/5">
           <button
             onClick={handleLogout}
-            className={`group relative flex items-center gap-3.5 px-3 py-3 rounded-2xl text-sm font-medium text-gray-400 
+            className={`group relative flex items-center gap-3.5 px-3 py-3 rounded-2xl text-sm font-medium text-gray-400
               hover:text-red-400 hover:bg-red-500/10 transition-all duration-300 w-full overflow-hidden
               ${collapsed ? 'justify-center' : ''}`}
           >

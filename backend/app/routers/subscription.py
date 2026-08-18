@@ -16,11 +16,11 @@ async def get_subscription(current_user: dict = Depends(get_current_user)):
     plan = user.get("subscription_plan", "free") if user else "free"
     expires_at = user.get("subscription_expires_at") if user else None
 
-    # Auto-downgrade if expired
+
     if plan == "pro" and expires_at and isinstance(expires_at, datetime):
         if expires_at.tzinfo is None:
             expires_at = expires_at.replace(tzinfo=timezone.utc)
-            
+
         if expires_at < datetime.now(timezone.utc):
             await db.users.update_one(
                 {"_id": ObjectId(current_user["id"])},
@@ -58,7 +58,7 @@ async def activate_subscription(current_user: dict = Depends(get_current_user)):
         },
     )
 
-    # Log activity
+
     await db.activities.insert_one({
         "user_id": current_user["id"],
         "type": "subscription_activated",
@@ -91,7 +91,7 @@ async def cancel_subscription(current_user: dict = Depends(get_current_user)):
         },
     )
 
-    # Log activity
+
     await db.activities.insert_one({
         "user_id": current_user["id"],
         "type": "subscription_cancelled",

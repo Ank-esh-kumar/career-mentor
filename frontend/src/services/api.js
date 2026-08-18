@@ -8,7 +8,7 @@ const api = axios.create({
   timeout: 120000,
 });
 
-// Request interceptor — attach JWT token
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('access_token');
@@ -20,22 +20,22 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor — handle 401 by dispatching a custom event
-// so AuthContext can handle the redirect via React Router (no full-page reload).
+
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('access_token');
       localStorage.removeItem('user');
-      // Dispatch custom event so AuthContext can react
+
       window.dispatchEvent(new CustomEvent('auth:logout'));
     }
     return Promise.reject(error);
   }
 );
 
-// Auth API
+
 export const authAPI = {
   signup: (data) => api.post('/api/auth/signup', data),
   login: (data) => api.post('/api/auth/login', data),
@@ -45,7 +45,7 @@ export const authAPI = {
   getMe: () => api.get('/api/auth/me'),
 };
 
-// Profile API
+
 export const profileAPI = {
   get: () => api.get('/api/profile'),
   update: (data) => api.put('/api/profile', data),
@@ -58,7 +58,7 @@ export const profileAPI = {
   },
 };
 
-// Resume API
+
 export const resumeAPI = {
   upload: (file, onProgress) => {
     const formData = new FormData();
@@ -74,19 +74,19 @@ export const resumeAPI = {
   delete: () => api.delete('/api/resume'),
   analyze: () => api.post('/api/resume/analyze'),
   getAnalysis: () => api.get('/api/resume/analysis'),
-  
-  // Builder
+
+
   generateDraft: (preferences) => api.post('/api/resume/generate-draft', preferences),
   generateSummary: (data) => api.post('/api/resume/generate-summary', data),
   saveDraft: (draft) => api.post('/api/resume/save-draft', draft),
   getDraft: () => api.get('/api/resume/draft'),
-  
-  // ATS Evaluation (Premium)
+
+
   atsEvaluate: (data) => api.post('/api/resume/ats-evaluate', data),
   autoFix: (data) => api.post('/api/resume/auto-fix', data),
 };
 
-// Career API
+
 export const careerAPI = {
   recommend: (data = {}) => api.post('/api/career/recommend', data),
   getRecommendations: () => api.get('/api/career/recommendations'),
@@ -96,13 +96,13 @@ export const careerAPI = {
   getLearningResources: (data) => api.post('/api/career/learning-resources', data),
 };
 
-// Skill Gap API
+
 export const skillGapAPI = {
   analyze: (data) => api.post('/api/skillgap/analyze', data),
   getLatest: () => api.get('/api/skillgap/latest'),
 };
 
-// Roadmap API
+
 export const roadmapAPI = {
   generate: (data) => api.post('/api/roadmap/generate', data),
   getLatest: () => api.get('/api/roadmap/latest'),
@@ -110,7 +110,7 @@ export const roadmapAPI = {
     api.put(`/api/roadmap/step/${roadmapId}/${stepNumber}`),
 };
 
-// Chat API
+
 export const chatAPI = {
   sendMessage: (data) => api.post('/api/chat/message', data),
   getHistory: (conversationId) =>
@@ -118,7 +118,7 @@ export const chatAPI = {
   clearHistory: () => api.delete('/api/chat/history'),
 };
 
-// Analytics API
+
 export const analyticsAPI = {
   getDashboard: () => api.get('/api/analytics/dashboard'),
   getCareerMatch: () => api.get('/api/analytics/career-match'),
@@ -126,7 +126,7 @@ export const analyticsAPI = {
   getResumeScore: () => api.get('/api/analytics/resume-score'),
 };
 
-// Settings API
+
 export const settingsAPI = {
   get: () => api.get('/api/settings'),
   update: (data) => api.put('/api/settings', data),
@@ -134,7 +134,7 @@ export const settingsAPI = {
   deleteAccount: () => api.delete('/api/settings/account'),
 };
 
-// Subscription API
+
 export const subscriptionAPI = {
   get: () => api.get('/api/subscription'),
   activate: () => api.post('/api/subscription/activate'),

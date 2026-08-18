@@ -18,7 +18,7 @@ export default function HowItWorks() {
         </motion.div>
 
         <div className="relative">
-          {/* Connection line */}
+          {}
           <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -35,7 +35,7 @@ export default function HowItWorks() {
                   <div className="w-20 h-20 rounded-2xl bg-surface-card border border-border flex items-center justify-center relative z-10">
                     <step.icon size={32} className="text-primary-lighter" />
                   </div>
-                  <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-br from-primary to-accent 
+                  <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-br from-primary to-accent
                     flex items-center justify-center text-xs font-bold text-white z-20">{step.step}</span>
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>

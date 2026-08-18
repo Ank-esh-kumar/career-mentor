@@ -80,7 +80,7 @@ export default function SettingsPage() {
         <p className="text-gray-400 text-sm">Manage your account preferences.</p>
       </motion.div>
 
-      {/* Tabs */}
+      {}
       <div className="flex gap-2 overflow-x-auto pb-2">
         {tabs.map((t) => (
           <button key={t.id} onClick={() => setTab(t.id)}
@@ -91,7 +91,7 @@ export default function SettingsPage() {
         ))}
       </div>
 
-      {/* Appearance */}
+      {}
       {tab === 'appearance' && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
           <div className="card space-y-4">
@@ -125,8 +125,8 @@ export default function SettingsPage() {
                 { id: 'pro-rose', label: 'Rose', bg: 'bg-rose-500' },
                 { id: 'pro-amethyst', label: 'Amethyst', bg: 'bg-violet-500' }
               ].map(t => (
-                <button key={t.id} onClick={() => isPremium ? setProTheme(t.id) : setShowPremiumModal(true)} 
-                  className={`relative flex flex-col items-center justify-center h-20 gap-2 rounded-xl border transition-all 
+                <button key={t.id} onClick={() => isPremium ? setProTheme(t.id) : setShowPremiumModal(true)}
+                  className={`relative flex flex-col items-center justify-center h-20 gap-2 rounded-xl border transition-all
                   ${proTheme === t.id && isPremium ? 'border-primary ring-2 ring-primary/30' : 'border-white/5 hover:border-white/20 bg-surface/50'}
                   ${!isPremium && t.id !== 'default' ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}>
                   <div className={`w-6 h-6 rounded-full ${t.bg} shadow-lg`} />
@@ -143,7 +143,7 @@ export default function SettingsPage() {
         </motion.div>
       )}
 
-      {/* Notifications */}
+      {}
       {tab === 'notifications' && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="card space-y-4">
           {[
@@ -162,7 +162,7 @@ export default function SettingsPage() {
         </motion.div>
       )}
 
-      {/* Security */}
+      {}
       {tab === 'security' && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="card space-y-4">
           <h3 className="text-lg font-semibold text-white">Change Password</h3>
@@ -188,7 +188,7 @@ export default function SettingsPage() {
         </motion.div>
       )}
 
-      {/* Privacy */}
+      {}
       {tab === 'privacy' && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="card space-y-4">
           {[
@@ -206,7 +206,7 @@ export default function SettingsPage() {
         </motion.div>
       )}
 
-      {/* Danger */}
+      {}
       {tab === 'danger' && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="card border-red-500/20 space-y-4">
           <h3 className="text-lg font-semibold text-red-400">Danger Zone</h3>

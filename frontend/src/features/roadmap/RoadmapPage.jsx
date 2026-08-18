@@ -53,14 +53,14 @@ export default function RoadmapPage() {
   if (generating) {
     return (
       <div className="py-20 max-w-2xl mx-auto">
-        <DynamicLoader 
+        <DynamicLoader
           texts={[
             "Analyzing target role requirements...",
             "Mapping required skills and milestones...",
             "Structuring step-by-step career timeline...",
             "Fetching industry-standard resources...",
             "Compiling your ultimate career roadmap..."
-          ]} 
+          ]}
           subtext="Our AI is charting out the best path for your career goals."
         />
       </div>
@@ -89,7 +89,7 @@ export default function RoadmapPage() {
 
       {roadmap && (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-          {/* Header */}
+          {}
           <div className="card flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <p className="text-sm text-gray-400">Target Career</p>
@@ -105,15 +105,15 @@ export default function RoadmapPage() {
             </div>
           </div>
 
-          {/* Timeline */}
+          {}
           <div className="relative pl-8">
-            {/* Vertical line */}
+            {}
             <div className="absolute left-[10px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-emerald-500 opacity-30" />
 
             <div className="space-y-6">
               {roadmap.steps?.map((step, i) => (
                 <motion.div key={step.step_number || i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }} className="relative">
-                  {/* Dot */}
+                  {}
                   <button onClick={() => toggleStep(step.step_number)} className="absolute -left-8 top-1 z-10" aria-label={`Toggle step ${step.step_number}`}>
                     {step.is_completed ? (
                       <CheckCircle size={22} className="text-emerald-400 fill-emerald-400/20" />

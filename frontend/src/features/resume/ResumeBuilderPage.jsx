@@ -21,15 +21,15 @@ export default function ResumeBuilderPage() {
   const [saving, setSaving] = useState(false);
   const [hasBaseResume, setHasBaseResume] = useState(false);
   const [zoom, setZoom] = useState(0.8);
-  
-  // Premium System
+
+
   const { isPremium, loading: subLoading } = useSubscription();
   const [showPremiumModal, setShowPremiumModal] = useState(false);
-  
-  // ATS Scoring
+
+
   const [scoreData, setScoreData] = useState(null);
-  
-  // Preferences
+
+
   const [prefs, setPrefs] = useState({
     target_role: '',
     experience_level: 'Mid-Level',
@@ -37,16 +37,16 @@ export default function ResumeBuilderPage() {
     tone: 'Professional'
   });
 
-  // Draft Data
+
   const [draft, setDraft] = useState(null);
-  
-  // Print Reference
+
+
   const printRef = useRef();
-  
+
   const handlePrint = () => {
     const element = printRef.current;
     if (!element) return;
-    
+
     const opt = {
       margin: 0,
       filename: 'ATS_Resume.pdf',
@@ -54,12 +54,12 @@ export default function ResumeBuilderPage() {
       html2canvas: { scale: 2, useCORS: true },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
-    
+
     html2pdf().set(opt).from(element).save();
   };
 
   useEffect(() => {
-    // Only check base resume if premium, otherwise the page is locked anyway
+
     if (!subLoading && isPremium) {
       checkBaseResume();
     } else if (!subLoading && !isPremium) {
@@ -80,8 +80,8 @@ export default function ResumeBuilderPage() {
     try {
       await resumeAPI.get();
       setHasBaseResume(true);
-      
-      // Try to load existing draft
+
+
       try {
         const draftRes = await resumeAPI.getDraft();
         if (draftRes.data) {
@@ -92,10 +92,10 @@ export default function ResumeBuilderPage() {
             key_achievements: '',
             tone: 'Professional'
           });
-          setStep(3); // Go straight to editor if draft exists
+          setStep(3);
         }
       } catch (e) {
-        // No draft exists yet
+
       }
     } catch {
       setHasBaseResume(false);
@@ -109,17 +109,17 @@ export default function ResumeBuilderPage() {
       toast.error("Please enter a Target Role");
       return;
     }
-    
+
     setGenerating(true);
-    setStep(2); // Loading step
-    
+    setStep(2);
+
     try {
       const res = await resumeAPI.generateDraft(prefs);
       setDraft(res.data);
-      setStep(3); // Editor step
+      setStep(3);
       toast.success("ATS Resume generated successfully!");
-      
-      // Auto-save the draft
+
+
       await resumeAPI.saveDraft({
         target_role: prefs.target_role,
         content: res.data
@@ -140,10 +140,10 @@ export default function ResumeBuilderPage() {
       toast.error("Please enter a Target Role in the Preferences section first");
       return;
     }
-    
+
     setGeneratingSummary(true);
     try {
-      // Extract ATS insights to help the AI craft a better summary
+
       const atsEvaluation = evaluateResume(draft, prefs.target_role);
       const atsInsights = {
         overall_score: atsEvaluation.overall,
@@ -157,7 +157,7 @@ export default function ResumeBuilderPage() {
         current_resume: JSON.stringify(draft),
         ats_insights: JSON.stringify(atsInsights)
       });
-      
+
       setDraft((prev) => ({
         ...prev,
         summary: res.data.summary
@@ -205,19 +205,19 @@ export default function ResumeBuilderPage() {
   const handleManualEdit = (section, index, field, value) => {
     setDraft(prev => {
       const updated = { ...prev };
-      
+
       if (index !== null) {
-        // It's an array like experience or education
+
         updated[section] = [...updated[section]];
         updated[section][index] = { ...updated[section][index], [field]: value };
       } else if (field !== null) {
-        // It's an object like personal_info
+
         updated[section] = { ...updated[section], [field]: value };
       } else {
-        // It's a simple string like summary
+
         updated[section] = value;
       }
-      
+
       return updated;
     });
   };
@@ -303,7 +303,7 @@ export default function ResumeBuilderPage() {
       const updated = { ...prev };
       updated.custom_sections = [...updated.custom_sections];
       updated.custom_sections[index] = { ...updated.custom_sections[index] };
-      
+
       if (itemIndex !== null) {
         updated.custom_sections[index].items = [...updated.custom_sections[index].items];
         updated.custom_sections[index].items[itemIndex] = value;
@@ -372,7 +372,7 @@ export default function ResumeBuilderPage() {
               Upgrade to Pro
             </Button>
           </div>
-           
+
           <div className="grid grid-cols-3 gap-6 p-6 opacity-30 select-none pointer-events-none filter blur-[2px]">
             <div className="col-span-1 space-y-4">
               <div className="h-40 bg-white/5 rounded-xl border border-white/10"></div>
@@ -406,7 +406,7 @@ export default function ResumeBuilderPage() {
 
   return (
     <div className="max-w-7xl mx-auto space-y-6 pb-20">
-      {/* Header */}
+      {}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
           <button onClick={() => navigate('/resume')} className="text-sm text-gray-400 hover:text-white flex items-center gap-1 mb-2 transition-colors">
@@ -417,7 +417,7 @@ export default function ResumeBuilderPage() {
           </h1>
           <p className="text-gray-400 text-sm">Curate a highly optimized resume tailored to your target role.</p>
         </motion.div>
-        
+
         {step === 3 && (
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-wrap gap-2 md:gap-3">
             <Button variant="secondary" icon={RefreshCw} onClick={() => setStep(1)} className="text-sm">Re-generate</Button>
@@ -432,7 +432,7 @@ export default function ResumeBuilderPage() {
           <motion.div key="step1" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="max-w-2xl mx-auto">
             <div className="card space-y-6">
               <h2 className="text-lg font-bold text-white border-b border-border pb-4">Resume Preferences</h2>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">Target Role</label>
                 <Input value={prefs.target_role} onChange={(e) => setPrefs({...prefs, target_role: e.target.value})} placeholder="e.g. Senior Machine Learning Engineer" />
@@ -441,8 +441,8 @@ export default function ResumeBuilderPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2">Experience Level</label>
-                  <select 
-                    value={prefs.experience_level} 
+                  <select
+                    value={prefs.experience_level}
                     onChange={(e) => setPrefs({...prefs, experience_level: e.target.value})}
                     className="w-full px-3.5 py-2.5 bg-surface border border-border rounded-xl text-sm text-gray-100 focus:outline-none focus:border-primary/50"
                   >
@@ -454,8 +454,8 @@ export default function ResumeBuilderPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2">Tone</label>
-                  <select 
-                    value={prefs.tone} 
+                  <select
+                    value={prefs.tone}
                     onChange={(e) => setPrefs({...prefs, tone: e.target.value})}
                     className="w-full px-3.5 py-2.5 bg-surface border border-border rounded-xl text-sm text-gray-100 focus:outline-none focus:border-primary/50"
                   >
@@ -469,8 +469,8 @@ export default function ResumeBuilderPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">Key Achievements to Highlight (Optional)</label>
-                <textarea 
-                  value={prefs.key_achievements} 
+                <textarea
+                  value={prefs.key_achievements}
                   onChange={(e) => setPrefs({...prefs, key_achievements: e.target.value})}
                   className="w-full px-3.5 py-2.5 bg-surface border border-border rounded-xl text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-primary/50 resize-none h-24"
                   placeholder="e.g. Increased revenue by 20%, Built scalable microservices..."
@@ -501,36 +501,36 @@ export default function ResumeBuilderPage() {
 
         {step === 3 && draft && (
           <motion.div key="step3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
-            {/* Top Row: Editor & Preview */}
+            {}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              
-              {/* Editor Pane */}
+
+              {}
               <div className="space-y-6 h-auto lg:h-[calc(100vh-220px)] lg:overflow-y-auto pr-0 lg:pr-2 custom-scrollbar">
-              
-              {/* Summary */}
+
+              {}
               <div className="card space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-gray-300 flex items-center gap-2 uppercase tracking-wider"><FileText size={16}/> Professional Summary</h3>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
-                    icon={Sparkles} 
-                    onClick={handleGenerateSummary} 
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    icon={Sparkles}
+                    onClick={handleGenerateSummary}
                     loading={generatingSummary}
                     className="h-8 text-xs py-1 px-3 border-primary/30 text-primary-lighter hover:bg-primary/10"
                   >
                     AI Generate
                   </Button>
                 </div>
-                <textarea 
-                  value={draft.summary} 
+                <textarea
+                  value={draft.summary}
                   onChange={(e) => handleManualEdit('summary', null, null, e.target.value)}
                   className="w-full px-3 py-2 bg-surface border border-border rounded-lg text-sm text-gray-100 focus:outline-none focus:border-primary/50 resize-none h-32"
                   disabled={generatingSummary}
                 />
               </div>
 
-              {/* Experience */}
+              {}
               <div className="space-y-4">
                 {draft.experience?.map((exp, i) => (
                   <div key={i} className="card space-y-4 relative">
@@ -552,8 +552,8 @@ export default function ResumeBuilderPage() {
                       <label className="text-xs text-gray-500 font-medium uppercase">Bullet Points</label>
                       {exp.bullets?.map((bullet, j) => (
                         <div key={j} className="flex gap-2">
-                          <textarea 
-                            value={bullet} 
+                          <textarea
+                            value={bullet}
                             onChange={(e) => handleArrayEdit('experience', i, 'bullets', j, e.target.value)}
                             className="flex-1 px-3 py-2 bg-surface border border-border rounded-lg text-sm text-gray-100 focus:outline-none focus:border-primary/50 resize-none h-16"
                           />
@@ -613,8 +613,8 @@ export default function ResumeBuilderPage() {
                       <Input value={proj.name} onChange={(e) => handleManualEdit('projects', i, 'name', e.target.value)} placeholder="Project Name" />
                       <Input value={proj.url} onChange={(e) => handleManualEdit('projects', i, 'url', e.target.value)} placeholder="URL (Optional)" />
                     </div>
-                    <textarea 
-                      value={proj.description} 
+                    <textarea
+                      value={proj.description}
                       onChange={(e) => handleManualEdit('projects', i, 'description', e.target.value)}
                       placeholder="Description"
                       className="w-full px-3 py-2 bg-surface border border-border rounded-lg text-sm text-gray-100 focus:outline-none focus:border-primary/50 resize-none h-16"
@@ -641,8 +641,8 @@ export default function ResumeBuilderPage() {
                       <div className="space-y-2">
                         {section.items?.map((item, j) => (
                           <div key={j} className="flex gap-2">
-                            <Input 
-                              value={item} 
+                            <Input
+                              value={item}
                               onChange={(e) => handleCustomSectionEdit(i, null, e.target.value, j)}
                               placeholder="Item description..."
                             />
@@ -659,17 +659,17 @@ export default function ResumeBuilderPage() {
                   ))}
                 </div>
               )}
-              
+
               <Button variant="secondary" icon={Plus} className="w-full border-dashed mt-4 border-primary/30 text-primary hover:bg-primary/10" onClick={handleAddCustomSection}>
                 Add Custom Section
               </Button>
 
             </div>
 
-            {/* Live Preview / PDF Export Pane */}
+            {}
             <div className="bg-gray-200 rounded-2xl flex flex-col h-[500px] lg:h-[calc(100vh-220px)] shadow-inner relative overflow-hidden">
-              
-              {/* Zoom Controls */}
+
+              {}
               <div className="absolute top-4 right-4 z-10 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-xl shadow-md text-gray-800">
                 <button onClick={() => setZoom(z => Math.max(0.4, z - 0.1))} className="p-1 hover:bg-gray-200 rounded text-gray-600 transition-colors">
                   <ZoomOut size={18} />
@@ -681,23 +681,23 @@ export default function ResumeBuilderPage() {
               </div>
 
               <div className="flex-1 overflow-auto custom-scrollbar p-4 lg:p-8 flex justify-start lg:justify-center items-start">
-                {/* The printable component wrapper */}
-                <div 
+                {}
+                <div
                   className="origin-top transition-transform duration-200 w-[210mm]"
                   style={{ transform: `scale(${zoom})` }}
                 >
-                  <div 
-                    ref={printRef} 
-                    className="bg-white shadow-xl" 
-                    style={{ 
-                      width: '210mm', 
-                      minHeight: '297mm', 
-                      padding: '20mm', 
+                  <div
+                    ref={printRef}
+                    className="bg-white shadow-xl"
+                    style={{
+                      width: '210mm',
+                      minHeight: '297mm',
+                      padding: '20mm',
                       color: '#000',
                       fontFamily: 'Times New Roman, serif'
                     }}
                   >
-                    {/* Personal Info */}
+                    {}
                     <div className="text-center mb-6 border-b-2 border-gray-800 pb-4">
                     <h1 className="text-3xl font-bold uppercase tracking-wider mb-2" style={{ fontFamily: 'Arial, sans-serif' }}>
                       {draft.personal_info?.name || 'YOUR NAME'}
@@ -714,7 +714,7 @@ export default function ResumeBuilderPage() {
                     </div>
                   </div>
 
-                  {/* Summary */}
+                  {}
                   {draft.summary && (
                     <div className="mb-6">
                       <h2 className="text-lg font-bold uppercase border-b border-gray-400 mb-2" style={{ fontFamily: 'Arial, sans-serif' }}>Professional Summary</h2>
@@ -722,7 +722,7 @@ export default function ResumeBuilderPage() {
                     </div>
                   )}
 
-                  {/* Skills */}
+                  {}
                   {draft.skills && (
                     <div className="mb-6">
                       <h2 className="text-lg font-bold uppercase border-b border-gray-400 mb-2" style={{ fontFamily: 'Arial, sans-serif' }}>Skills</h2>
@@ -737,7 +737,7 @@ export default function ResumeBuilderPage() {
                     </div>
                   )}
 
-                  {/* Experience */}
+                  {}
                   {draft.experience?.length > 0 && (
                     <div className="mb-6">
                       <h2 className="text-lg font-bold uppercase border-b border-gray-400 mb-3" style={{ fontFamily: 'Arial, sans-serif' }}>Experience</h2>
@@ -763,7 +763,7 @@ export default function ResumeBuilderPage() {
                     </div>
                   )}
 
-                  {/* Education */}
+                  {}
                   {draft.education?.length > 0 && (
                     <div className="mb-6">
                       <h2 className="text-lg font-bold uppercase border-b border-gray-400 mb-3" style={{ fontFamily: 'Arial, sans-serif' }}>Education</h2>
@@ -784,7 +784,7 @@ export default function ResumeBuilderPage() {
                     </div>
                   )}
 
-                  {/* Projects */}
+                  {}
                   {draft.projects?.length > 0 && (
                     <div className="mb-6">
                       <h2 className="text-lg font-bold uppercase border-b border-gray-400 mb-3" style={{ fontFamily: 'Arial, sans-serif' }}>Projects</h2>
@@ -805,7 +805,7 @@ export default function ResumeBuilderPage() {
                     </div>
                   )}
 
-                  {/* Custom Sections */}
+                  {}
                   {draft.custom_sections?.length > 0 && draft.custom_sections.map((section, i) => (
                     <div key={i} className="mb-6">
                       <h2 className="text-lg font-bold uppercase border-b border-gray-400 mb-3" style={{ fontFamily: 'Arial, sans-serif' }}>
@@ -818,14 +818,14 @@ export default function ResumeBuilderPage() {
                       </ul>
                     </div>
                   ))}
-                  
+
                 </div>
               </div>
             </div>
-            </div> {/* End of Live Preview Pane */}
-            </div> {/* End of Top Row Grid */}
+            </div> {}
+            </div> {}
 
-            {/* Bottom Row: ATS Score Panel */}
+            {}
             <div className="w-full max-w-4xl mx-auto h-[600px] lg:h-[500px]">
                <ATSScorePanel scoreData={scoreData} draft={draft} targetRole={prefs.target_role} onAutoFix={handleAutoFix} />
             </div>

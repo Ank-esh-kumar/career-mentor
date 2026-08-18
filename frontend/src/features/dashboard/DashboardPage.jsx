@@ -20,7 +20,7 @@ export default function DashboardPage() {
       try {
         const res = await analyticsAPI.getDashboard();
         setStats(res.data);
-      } catch { /* empty stats */ }
+      } catch {  }
       finally { setLoading(false); }
     };
     fetchStats();
@@ -37,7 +37,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Welcome */}
+      {}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold font-display text-white">
@@ -47,7 +47,7 @@ export default function DashboardPage() {
         </div>
       </motion.div>
 
-      {/* Score cards */}
+      {}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { label: 'Profile Completion', value: stats?.profile_completion || 0, icon: Target, color: '#2563EB' },
@@ -66,7 +66,7 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      {/* Quick Actions */}
+      {}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="card">
         <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
           <Sparkles size={18} className="text-accent" /> Quick Actions
@@ -85,7 +85,7 @@ export default function DashboardPage() {
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Latest career */}
+        {}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="card">
           <h2 className="text-lg font-semibold text-white mb-4">Latest Recommendation</h2>
           {stats?.latest_career ? (
@@ -104,7 +104,7 @@ export default function DashboardPage() {
           )}
         </motion.div>
 
-        {/* Recent activities */}
+        {}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="card">
           <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Clock size={18} className="text-gray-400" /> Recent Activity

@@ -47,7 +47,7 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Toggle button */}
+      {}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent text-white shadow-glow-lg flex items-center justify-center hover:scale-110 transition-transform"
@@ -57,7 +57,7 @@ export default function ChatWidget() {
         {isOpen ? <X size={22} /> : <MessageSquare size={22} />}
       </motion.button>
 
-      {/* Chat window */}
+      {}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -66,7 +66,7 @@ export default function ChatWidget() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-3rem)] h-[520px] glass-strong rounded-2xl flex flex-col overflow-hidden shadow-glass"
           >
-            {/* Header */}
+            {}
             <div className="flex items-center justify-between px-4 py-3 border-b border-border">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
@@ -82,7 +82,7 @@ export default function ChatWidget() {
               </button>
             </div>
 
-            {/* Messages */}
+            {}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.length === 0 && (
                 <div className="text-center py-8">
@@ -120,7 +120,7 @@ export default function ChatWidget() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
+            {}
             <div className="p-3 border-t border-border">
               <div className="flex gap-2">
                 <input

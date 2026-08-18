@@ -19,7 +19,7 @@ export function SubscriptionProvider({ children }) {
     setFeatures(data.features || {});
   }, []);
 
-  // Fetch subscription status when authenticated
+
   useEffect(() => {
     if (!isAuthenticated) {
       setPlan('free');
@@ -33,7 +33,7 @@ export function SubscriptionProvider({ children }) {
         const res = await subscriptionAPI.get();
         updateState(res.data);
       } catch {
-        // Default to free if fetch fails
+
         setPlan('free');
         setIsPremium(false);
       } finally {
@@ -47,7 +47,7 @@ export function SubscriptionProvider({ children }) {
   const activate = useCallback(async () => {
     const res = await subscriptionAPI.activate();
     updateState(res.data);
-    // Update user in AuthContext so subscription_plan is reflected
+
     if (updateUser) {
       updateUser({ subscription_plan: 'pro' });
     }
@@ -68,7 +68,7 @@ export function SubscriptionProvider({ children }) {
       const res = await subscriptionAPI.get();
       updateState(res.data);
     } catch {
-      // silent fail
+
     }
   }, [updateState]);
 

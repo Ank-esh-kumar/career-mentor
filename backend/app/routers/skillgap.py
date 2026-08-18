@@ -31,7 +31,7 @@ async def analyze_skill_gap(
 
     current_skills = profile.get("skills", [])
 
-    # Retrieve relevant context
+
     context = await retrieve_context(
         f"skills required for {target_career}",
         "career_knowledge",
@@ -39,8 +39,8 @@ async def analyze_skill_gap(
     )
 
     from app.services.resume_service import get_resume
-    
-    # Fetch resume text if available
+
+
     resume_text = ""
     try:
         resume = await get_resume(current_user["id"])
@@ -64,10 +64,10 @@ async def analyze_skill_gap(
                 raise ValueError("Failed to parse AI response")
     except Exception as e:
         print(f"OpenRouter API failed: {e}. Falling back to mock data.")
-        # Fallback to mock data to ensure the app works fully without errors
+
         safe_skills = current_skills if current_skills else []
         matched = [str(skill) for skill in safe_skills if skill and len(str(skill)) > 2][:3]
-        
+
         result = {
             "matched_skills": matched,
             "missing_skills": ["System Design", "Advanced Algorithms", "Cloud Architecture"],
@@ -97,7 +97,7 @@ async def analyze_skill_gap(
         }
 
     try:
-        # Store in database
+
         gap_doc = {
             "user_id": current_user["id"],
             "target_career": target_career,

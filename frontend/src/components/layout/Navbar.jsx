@@ -37,8 +37,8 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex items-center justify-between h-16 relative w-full">
-          
-          {/* Left: Hamburger menu toggle (Visible on all screens) */}
+
+          {}
           <div className="flex-1 flex items-center justify-start">
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -49,7 +49,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Center: Logo */}
+          {}
           <Link to="/" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-1.5 sm:gap-2.5">
             <div className="w-7 h-7 sm:w-9 sm:h-9 shrink-0 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-[0_0_15px_rgba(var(--color-primary),0.3)]">
               <Sparkles className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-white" />
@@ -59,7 +59,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Right: Actions */}
+          {}
           <div className="flex-1 flex items-center justify-end gap-1.5 sm:gap-3">
             <ThemeToggle />
             {isAuthenticated ? (
@@ -79,7 +79,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Dropdown Menu (For all screens) */}
+      {}
       {mobileOpen && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}

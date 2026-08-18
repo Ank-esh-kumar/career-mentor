@@ -85,7 +85,7 @@ export default function ProfilePage() {
       </motion.div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Basic Info */}
+        {}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="card space-y-4">
           <h2 className="text-lg font-semibold text-white flex items-center gap-2"><User size={18} /> Basic Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -100,7 +100,7 @@ export default function ProfilePage() {
           </div>
         </motion.div>
 
-        {/* Skills */}
+        {}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="card space-y-4">
           <h2 className="text-lg font-semibold text-white">Skills</h2>
           <div className="flex gap-2">
@@ -118,7 +118,7 @@ export default function ProfilePage() {
           </div>
         </motion.div>
 
-        {/* Interests */}
+        {}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="card space-y-4">
           <h2 className="text-lg font-semibold text-white">Interests & Career Preferences</h2>
           <div className="flex gap-2">
@@ -137,7 +137,7 @@ export default function ProfilePage() {
           <Input label="Career Preferences" {...register('career_preferences')} placeholder="e.g., Remote, Tech, Startup" />
         </motion.div>
 
-        {/* Links */}
+        {}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="card space-y-4">
           <h2 className="text-lg font-semibold text-white">Links</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

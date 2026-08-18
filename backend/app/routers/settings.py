@@ -67,7 +67,7 @@ async def delete_account(current_user: dict = Depends(get_current_user)):
     db = get_database()
     user_id = current_user["id"]
 
-    # Delete all user data
+
     await db.profiles.delete_many({"user_id": user_id})
     await db.resumes.delete_many({"user_id": user_id})
     await db.career_recommendations.delete_many({"user_id": user_id})

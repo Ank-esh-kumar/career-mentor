@@ -37,7 +37,7 @@ export default function SignupPage() {
     if (score <= 4) return 'bg-yellow-500';
     return 'bg-green-500';
   };
-  
+
   const getStrengthText = (score) => {
     if (score === 0) return '';
     if (score <= 2) return 'Weak';
@@ -103,7 +103,7 @@ export default function SignupPage() {
             <p className="text-gray-400">Begin your AI-powered career journey</p>
           </div>
 
-          {/* Google — uses credential (ID token) flow */}
+          {}
           {import.meta.env.VITE_GOOGLE_CLIENT_ID && import.meta.env.VITE_GOOGLE_CLIENT_ID !== 'your-google-client-id.apps.googleusercontent.com' && (
             <>
               <div className="flex justify-center mb-6 w-full">
@@ -153,7 +153,7 @@ export default function SignupPage() {
                       {getStrengthText(strengthScore)} Password
                     </span>
                   </div>
-                  
+
                   {strengthScore < 5 && (
                     <div className="text-xs text-gray-500 mt-1 bg-surface-card p-3 rounded-lg border border-border">
                       <p className="text-gray-300 mb-2 font-medium">To make it stronger, add:</p>

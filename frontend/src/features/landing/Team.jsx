@@ -10,10 +10,10 @@ export default function Team() {
   return (
     <section className="py-24 relative overflow-hidden" id="team">
       <div className="max-w-6xl mx-auto px-6 space-y-12 relative z-10">
-        
-        {/* Title Section */}
+
+        {}
         <div className="text-center space-y-6">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -21,7 +21,7 @@ export default function Team() {
           >
             Meet The <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Developers</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -30,7 +30,7 @@ export default function Team() {
           >
             The passionate minds bridging the gap between ambition and opportunity through AI-driven career guidance.
           </motion.p>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -38,7 +38,7 @@ export default function Team() {
             transition={{ delay: 0.2 }}
             className="flex justify-center pt-4"
           >
-            <Button 
+            <Button
               onClick={() => setIsVisible(!isVisible)}
               variant={isVisible ? "secondary" : "primary"}
               className="gap-2"
@@ -52,10 +52,10 @@ export default function Team() {
           </motion.div>
         </div>
 
-        {/* Team Section */}
+        {}
         <AnimatePresence>
           {isVisible && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
@@ -63,9 +63,9 @@ export default function Team() {
               className="overflow-hidden"
             >
               <div className="relative w-full max-w-5xl mx-auto flex flex-col md:flex-row items-stretch justify-center gap-8 pt-6 pb-10">
-                
-                {/* Garima - Left on Desktop, Bottom on Mobile */}
-                <SpotlightCard 
+
+                {}
+                <SpotlightCard
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 }}
@@ -85,20 +85,20 @@ export default function Team() {
                     <p>
                       Garima played a crucial role in bringing the frontend components to life and ensuring a smooth user experience across the application.
                     </p>
-                    
+
                     <div>
                       <h4 className="font-semibold text-gray-400 uppercase tracking-wider text-xs mb-3">Key Contributions</h4>
                       <ul className="space-y-3">
                         <li className="flex items-start gap-2">
-                          <Layout size={16} className="text-secondary shrink-0 mt-0.5" /> 
+                          <Layout size={16} className="text-secondary shrink-0 mt-0.5" />
                           <span><strong>UI Implementation:</strong> Crafted and implemented the rich interactive frontend components.</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <PenTool size={16} className="text-secondary shrink-0 mt-0.5" /> 
+                          <PenTool size={16} className="text-secondary shrink-0 mt-0.5" />
                           <span><strong>Styling & Design:</strong> Ensured beautiful layouts and consistent design systems.</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <Code size={16} className="text-secondary shrink-0 mt-0.5" /> 
+                          <Code size={16} className="text-secondary shrink-0 mt-0.5" />
                           <span><strong>Code Testing & QA:</strong> Verified functionality and usability across the app.</span>
                         </li>
                       </ul>
@@ -112,8 +112,8 @@ export default function Team() {
                   </div>
                 </SpotlightCard>
 
-                {/* Ankesh - Center/Right on Desktop, Top on Mobile */}
-                <SpotlightCard 
+                {}
+                <SpotlightCard
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
@@ -134,20 +134,20 @@ export default function Team() {
                     <p>
                       Ankesh envisioned the core architecture and drove the full-stack development of Career Mentor. He integrated the advanced AI engines and built the scalable backend infrastructure.
                     </p>
-                    
+
                     <div>
                       <h4 className="font-semibold text-gray-400 uppercase tracking-wider text-xs mb-3">Major Contributions</h4>
                       <ul className="space-y-3">
                         <li className="flex items-start gap-2">
-                          <BrainCircuit size={16} className="text-primary shrink-0 mt-0.5" /> 
+                          <BrainCircuit size={16} className="text-primary shrink-0 mt-0.5" />
                           <span><strong>AI Orchestration:</strong> Engineered the advanced LLM prompts and ATS scoring logic.</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <Database size={16} className="text-primary shrink-0 mt-0.5" /> 
+                          <Database size={16} className="text-primary shrink-0 mt-0.5" />
                           <span><strong>System Architecture:</strong> Designed the robust FastAPI backend and MongoDB schemas.</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <Terminal size={16} className="text-primary shrink-0 mt-0.5" /> 
+                          <Terminal size={16} className="text-primary shrink-0 mt-0.5" />
                           <span><strong>Full-Stack Mastery:</strong> Led the development of the complex dynamic React frontend and API services.</span>
                         </li>
                       </ul>

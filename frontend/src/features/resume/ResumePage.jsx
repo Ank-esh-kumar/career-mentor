@@ -17,7 +17,7 @@ export default function ResumePage() {
   const navigate = useNavigate();
   const { isPremium } = useSubscription();
   const [showPremiumModal, setShowPremiumModal] = useState(false);
-  
+
   const [resume, setResume] = useState(null);
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -85,7 +85,7 @@ export default function ResumePage() {
         <p className="text-gray-400 text-sm">Upload your resume for AI-powered analysis and career matching.</p>
       </motion.div>
 
-      {/* Upload zone */}
+      {}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
         <div {...getRootProps()} className={`card cursor-pointer border-2 border-dashed text-center py-12 transition-all duration-200
           ${isDragActive ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/30'}`}>
@@ -110,7 +110,7 @@ export default function ResumePage() {
         </div>
       </motion.div>
 
-      {/* Current resume */}
+      {}
       {resume && (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="card">
           <div className="flex items-center justify-between mb-4">
@@ -131,7 +131,7 @@ export default function ResumePage() {
             </div>
           </div>
 
-          {/* Parsed skills */}
+          {}
           {resume.parsed_data?.skills?.length > 0 && (
             <div>
               <p className="text-sm text-gray-400 mb-2">Detected Skills</p>
@@ -145,12 +145,12 @@ export default function ResumePage() {
         </motion.div>
       )}
 
-      {/* AI Analysis */}
+      {}
       {analysis && (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-white flex items-center gap-2"><Brain size={20} className="text-accent" /> AI Analysis</h2>
-            <Button 
+            <Button
               onClick={() => isPremium ? navigate('/resume/builder') : setShowPremiumModal(true)}
               className={!isPremium ? "bg-gradient-to-r from-amber-500 to-purple-600 border-0 hover:opacity-90" : ""}
             >
@@ -168,7 +168,7 @@ export default function ResumePage() {
             </Button>
           </div>
 
-          {/* Scores */}
+          {}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { label: 'Career Readiness', value: analysis.career_readiness_score || 0, color: '#2563EB' },
@@ -183,7 +183,7 @@ export default function ResumePage() {
             ))}
           </div>
 
-          {/* Summary */}
+          {}
           {analysis.professional_summary && (
             <div className="card">
               <h3 className="text-sm font-semibold text-white mb-2">Professional Summary</h3>
@@ -191,7 +191,7 @@ export default function ResumePage() {
             </div>
           )}
 
-          {/* Strengths & Weaknesses */}
+          {}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {analysis.strengths?.length > 0 && (
               <div className="card">

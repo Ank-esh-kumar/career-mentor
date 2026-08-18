@@ -31,7 +31,7 @@ export default function Features() {
               transition={{ delay: i * 0.1 }}
               className="card group cursor-default"
             >
-              <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 
+              <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4
                 group-hover:scale-110 transition-transform duration-300`}>
                 <feature.icon size={24} />
               </div>

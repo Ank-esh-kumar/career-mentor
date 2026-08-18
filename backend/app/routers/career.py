@@ -24,7 +24,7 @@ async def generate_recommendations(
 
     from app.services.resume_service import get_resume
     resume = await get_resume(current_user["id"])
-    
+
     if not resume:
         raise HTTPException(status_code=400, detail="Please upload and analyze your resume first to get career recommendations.")
 
@@ -34,7 +34,7 @@ async def generate_recommendations(
     resume_analysis = resume.get("analysis", {})
     desired_company = data.get("desired_company", "")
 
-    # Retrieve context from knowledge base
+
     query = f"career recommendations for someone with skills: {', '.join(resume_skills[:10]) if resume_skills else ''}"
     context = await retrieve_context(query, "career_knowledge", n_results=3)
 
@@ -54,7 +54,7 @@ async def generate_recommendations(
 
         recommendations = result.get("recommendations", [])
 
-        # Store in database
+
         rec_doc = {
             "user_id": current_user["id"],
             "recommendations": recommendations,
@@ -68,7 +68,7 @@ async def generate_recommendations(
 
         insert_result = await db.career_recommendations.insert_one(rec_doc)
 
-        # Log activity
+
         await db.activities.insert_one({
             "user_id": current_user["id"],
             "type": "career_recommendation",

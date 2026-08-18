@@ -8,18 +8,18 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center pt-16">
-      {/* Background effects */}
+      {}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/8 rounded-full blur-[120px]" />
         <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px]" />
         <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-purple-500/5 rounded-full blur-[80px]" />
-        {/* Grid pattern */}
+        {}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
         <div className="text-center max-w-4xl mx-auto">
-          {/* Badge */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -29,7 +29,7 @@ export default function Hero() {
             <span className="text-sm text-gray-300">Powered by Advanced AI</span>
           </motion.div>
 
-          {/* Heading */}
+          {}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -41,7 +41,7 @@ export default function Hero() {
             <span className="gradient-text">Career Mentor</span>
           </motion.h1>
 
-          {/* Subheading */}
+          {}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -52,7 +52,7 @@ export default function Hero() {
             skill analysis, and learning roadmaps tailored to your unique profile.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -67,7 +67,7 @@ export default function Hero() {
             </Button>
           </motion.div>
 
-          {/* Feature pills */}
+          {}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -87,9 +87,9 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Floating cards + Dashboard preview */}
+        {}
         <div className="relative mt-20 max-w-3xl mx-auto hidden md:block pt-8 pb-12 px-12 lg:px-16">
-          {/* Floating card — Career Match (top-left) */}
+          {}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0, y: [0, -12, 0] }}
@@ -107,7 +107,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Floating card — ATS Score (right) */}
+          {}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0, y: [0, 12, 0] }}
@@ -125,7 +125,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Floating card — Skills Analyzed (bottom-left) */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: [0, -8, 0] }}
@@ -143,7 +143,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Dashboard preview mockup */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

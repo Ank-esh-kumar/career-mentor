@@ -20,7 +20,7 @@ export function NotificationProvider({ children }) {
       setNotifications((prev) => [
         { id, type, message, timestamp, read: false },
         ...prev,
-      ].slice(0, 50)); // Keep only the latest 50 notifications
+      ].slice(0, 50));
     };
 
     window.addEventListener('app-notification', handleNotificationEvent);

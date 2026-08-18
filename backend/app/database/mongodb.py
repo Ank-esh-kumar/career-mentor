@@ -13,11 +13,11 @@ async def connect_to_mongo():
             settings.mongodb_uri,
             serverSelectionTimeoutMS=5000,
         )
-        # Verify the connection is alive
+
         await client.admin.command("ping")
         db = client[settings.mongodb_db_name]
 
-        # Create indexes
+
         await db.users.create_index("email", unique=True)
         await db.profiles.create_index("user_id", unique=True)
         await db.resumes.create_index("user_id")

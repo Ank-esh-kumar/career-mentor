@@ -21,13 +21,13 @@ async def upload(
     try:
         result = await upload_resume(current_user["id"], file)
 
-        # Store resume embedding in ChromaDB for RAG
+
         raw_text = result.get("parsed_data", {}).get("raw_text", "")
         if raw_text:
             try:
                 await store_resume_embedding(current_user["id"], raw_text)
             except Exception:
-                pass  # Non-critical: RAG enhancement
+                pass
 
         return result
     except ValueError as e:
@@ -68,7 +68,7 @@ async def analyze_resume(current_user: dict = Depends(get_current_user)):
     if not raw_text:
         raise HTTPException(status_code=400, detail="Could not extract text from resume")
 
-    # Generate AI analysis
+
     try:
         messages = resume_analysis_prompt(
             raw_text,
@@ -77,11 +77,11 @@ async def analyze_resume(current_user: dict = Depends(get_current_user)):
         )
         response = await openrouter_client.chat_completion(messages, temperature=0.3)
 
-        # Parse JSON response
+
         try:
             analysis = json.loads(response)
         except json.JSONDecodeError:
-            # Try to extract JSON from response
+
             import re
             json_match = re.search(r'\{[\s\S]*\}', response)
             if json_match:
@@ -91,14 +91,14 @@ async def analyze_resume(current_user: dict = Depends(get_current_user)):
 
         analysis["analyzed_at"] = datetime.now(timezone.utc).isoformat()
 
-        # Save analysis to database
+
         from bson import ObjectId
         await db.resumes.update_one(
             {"user_id": current_user["id"]},
             {"$set": {"analysis": analysis, "is_analyzed": True}},
         )
 
-        # Log activity
+
         await db.activities.insert_one({
             "user_id": current_user["id"],
             "type": "resume_analysis",
@@ -148,7 +148,7 @@ async def generate_resume_draft(
         response = await openrouter_client.chat_completion(messages, temperature=0.7)
         print("generate_resume_draft: OpenRouter response received, length:", len(response))
 
-        # Parse JSON response
+
         try:
             draft_content = json.loads(response)
         except json.JSONDecodeError:
@@ -159,7 +159,7 @@ async def generate_resume_draft(
             else:
                 print("generate_resume_draft ERROR: Failed to parse AI response into JSON")
                 raise Exception("Failed to parse AI response into JSON")
-        
+
         print("generate_resume_draft SUCCESS")
         return draft_content
 
@@ -183,7 +183,7 @@ async def generate_summary(
 
     try:
         messages = generate_summary_prompt(current_resume, target_role, ats_insights)
-        # Using a more creative temperature for writing
+
         response = await openrouter_client.chat_completion(messages, temperature=0.7)
         return {"summary": response.strip()}
     except Exception as e:
@@ -234,7 +234,7 @@ async def save_resume_draft(
     draft_dict["user_id"] = current_user["id"]
     draft_dict["updated_at"] = datetime.now(timezone.utc)
 
-    # Upsert the draft
+
     await db.resume_drafts.update_one(
         {"user_id": current_user["id"]},
         {"$set": draft_dict},
@@ -249,10 +249,10 @@ async def get_resume_draft(current_user: dict = Depends(require_premium)):
     """Get the latest saved resume draft."""
     db = get_database()
     draft = await db.resume_drafts.find_one({"user_id": current_user["id"]})
-    
+
     if not draft:
         raise HTTPException(status_code=404, detail="No draft found")
-        
+
     draft["id"] = str(draft["_id"])
     del draft["_id"]
     return draft

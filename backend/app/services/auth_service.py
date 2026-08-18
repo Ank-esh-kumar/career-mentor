@@ -1,8 +1,8 @@
 from datetime import datetime, timezone
 from typing import Optional
 from bson import ObjectId
-from google.oauth2 import id_token # type: ignore
-from google.auth.transport import requests as google_requests # type: ignore
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
 from app.database.mongodb import get_database
 from app.auth.jwt_handler import (
     create_access_token, hash_password, verify_password, create_reset_token,
@@ -35,7 +35,7 @@ async def signup_user(full_name: str, email: str, password: str) -> dict:
     result = await db.users.insert_one(user_doc)
     user_id = str(result.inserted_id)
 
-    # Create empty profile
+
     await db.profiles.insert_one({
         "user_id": user_id,
         "full_name": full_name,
@@ -60,7 +60,7 @@ async def signup_user(full_name: str, email: str, password: str) -> dict:
         "updated_at": datetime.now(timezone.utc),
     })
 
-    # Create default settings
+
     await db.user_settings.insert_one({
         "user_id": user_id,
         "notifications": {"email": True, "career_updates": True, "weekly_digest": True},
@@ -141,7 +141,7 @@ async def google_auth(credential: str) -> dict:
 
     if user:
         user_id = str(user["_id"])
-        # Update photo if changed
+
         if photo_url and user.get("photo_url") != photo_url:
             await db.users.update_one(
                 {"_id": user["_id"]},
@@ -192,7 +192,7 @@ async def google_auth(credential: str) -> dict:
 
     token = create_access_token({"sub": user_id, "email": email})
 
-    # Fetch the latest subscription plan for existing users
+
     if user:
         sub_plan = user.get("subscription_plan", "free")
     else:
@@ -219,7 +219,7 @@ async def forgot_password(email: str) -> dict:
     db = get_database()
     user = await db.users.find_one({"email": email})
 
-    # Always return success to prevent email enumeration
+
     if not user:
         return {"message": "If this email exists, a reset link has been sent."}
 
@@ -228,8 +228,8 @@ async def forgot_password(email: str) -> dict:
 
     reset_token = create_reset_token(email)
 
-    # In production, send email with reset link
-    # For now, store the token and return it (dev mode)
+
+
     await db.users.update_one(
         {"_id": user["_id"]},
         {"$set": {"reset_token": reset_token, "updated_at": datetime.now(timezone.utc)}},

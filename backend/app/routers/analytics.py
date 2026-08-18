@@ -14,7 +14,7 @@ async def get_dashboard_stats(current_user: dict = Depends(get_current_user)):
     db = get_database()
     user_id = current_user["id"]
 
-    # Profile completion
+
     try:
         profile = await get_profile(user_id)
         profile_completion = profile.get("profile_completion", 0)
@@ -23,14 +23,14 @@ async def get_dashboard_stats(current_user: dict = Depends(get_current_user)):
         profile_completion = 0
         skills_count = 0
 
-    # Resume status
+
     resume = await get_resume(user_id)
     has_resume = resume is not None
     resume_score = 0
     if resume and resume.get("analysis"):
         resume_score = resume["analysis"].get("career_readiness_score", 0)
 
-    # Latest recommendation
+
     latest_rec = await db.career_recommendations.find_one(
         {"user_id": user_id}, sort=[("generated_at", -1)]
     )
@@ -41,7 +41,7 @@ async def get_dashboard_stats(current_user: dict = Depends(get_current_user)):
         career_match_score = top.get("match_percentage", 0)
         latest_career = top.get("career_name")
 
-    # Skill gap
+
     latest_gap = await db.skill_gaps.find_one(
         {"user_id": user_id}, sort=[("analyzed_at", -1)]
     )
@@ -49,7 +49,7 @@ async def get_dashboard_stats(current_user: dict = Depends(get_current_user)):
     if latest_gap:
         skill_gap_score = latest_gap.get("overall_readiness", 0)
 
-    # Recent activities
+
     cursor = db.activities.find({"user_id": user_id}).sort("created_at", -1).limit(5)
     activities = []
     async for activity in cursor:
@@ -59,7 +59,7 @@ async def get_dashboard_stats(current_user: dict = Depends(get_current_user)):
             "timestamp": activity["created_at"],
         })
 
-    # Saved careers count
+
     saved_count = await db.saved_careers.count_documents({"user_id": user_id})
 
     return {
@@ -104,7 +104,7 @@ async def get_skill_progress(current_user: dict = Depends(get_current_user)):
         profile = await get_profile(current_user["id"])
         skills = profile.get("skills", [])
 
-        # Categorize skills
+
         categories = {
             "Programming": [], "Frontend": [], "Backend": [],
             "Database": [], "DevOps": [], "AI/ML": [],

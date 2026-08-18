@@ -5,7 +5,7 @@ from typing import Dict, Any, List, Optional
 def extract_text_from_pdf(filepath: str) -> str:
     """Extract text from a PDF file."""
     try:
-        import pdfplumber # type: ignore
+        import pdfplumber
         text = ""
         with pdfplumber.open(filepath) as pdf:
             for page in pdf.pages:
@@ -14,9 +14,9 @@ def extract_text_from_pdf(filepath: str) -> str:
                     text += page_text + "\n"
         return text.strip()
     except Exception as e:
-        # Fallback to PyPDF2
+
         try:
-            from PyPDF2 import PdfReader # type: ignore
+            from PyPDF2 import PdfReader
             reader = PdfReader(filepath)
             text = ""
             for page in reader.pages:
@@ -31,7 +31,7 @@ def extract_text_from_pdf(filepath: str) -> str:
 def extract_text_from_docx(filepath: str) -> str:
     """Extract text from a DOCX file."""
     try:
-        from docx import Document # type: ignore
+        from docx import Document
         doc = Document(filepath)
         text = "\n".join([para.text for para in doc.paragraphs if para.text.strip()])
         return text.strip()
@@ -153,7 +153,7 @@ def parse_resume(filepath: str, file_type: str) -> Dict[str, Any]:
     sections = parse_sections(text)
     header = sections.get("header", "")
 
-    # Extract name (first non-empty line, likely the name)
+
     lines = header.split("\n")
     name = None
     for line in lines:
@@ -178,7 +178,7 @@ def parse_resume(filepath: str, file_type: str) -> Dict[str, Any]:
         "languages": [],
     }
 
-    # Extract education section
+
     edu_text = ""
     for key in sections:
         if "education" in key or "academic" in key or "qualification" in key:
@@ -187,7 +187,7 @@ def parse_resume(filepath: str, file_type: str) -> Dict[str, Any]:
     if edu_text:
         parsed["education"] = [{"raw": edu_text}]
 
-    # Extract experience section
+
     exp_text = ""
     for key in sections:
         if "experience" in key or "employment" in key or "work" in key:
@@ -196,7 +196,7 @@ def parse_resume(filepath: str, file_type: str) -> Dict[str, Any]:
     if exp_text:
         parsed["experience"] = [{"raw": exp_text}]
 
-    # Extract projects
+
     proj_text = ""
     for key in sections:
         if "project" in key:
@@ -205,7 +205,7 @@ def parse_resume(filepath: str, file_type: str) -> Dict[str, Any]:
     if proj_text:
         parsed["projects"] = [{"raw": proj_text}]
 
-    # Extract certifications
+
     cert_text = ""
     for key in sections:
         if "certif" in key or "license" in key:
@@ -214,7 +214,7 @@ def parse_resume(filepath: str, file_type: str) -> Dict[str, Any]:
     if cert_text:
         parsed["certifications"] = [cert_text]
 
-    # Extract achievements
+
     ach_text = ""
     for key in sections:
         if "achieve" in key or "award" in key or "honor" in key:

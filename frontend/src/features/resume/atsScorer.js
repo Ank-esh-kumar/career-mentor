@@ -1,10 +1,3 @@
-/**
- * Client-side ATS (Applicant Tracking System) Score Engine
- * 
- * Evaluates a resume draft JSON across 7 weighted criteria and returns
- * section-level scores, feedback tips, and an overall weighted score.
- * Runs entirely in the browser — no API calls needed.
- */
 
 const ACTION_VERBS = [
   'achieved', 'accomplished', 'accelerated', 'administered', 'analyzed', 'built',
@@ -31,12 +24,6 @@ const SECTION_WEIGHTS = {
   formatting: 0.15,
 };
 
-/**
- * Evaluate the entire resume draft and return scores.
- * @param {Object} draft - The resume draft JSON object
- * @param {string} targetRole - The target role for keyword matching
- * @returns {Object} { overall, sections: { [name]: { score, status, tips, label } } }
- */
 export function evaluateResume(draft, targetRole = '') {
   if (!draft) {
     return getEmptyScore();
@@ -84,7 +71,7 @@ function getStatus(score) {
   return 'poor';
 }
 
-// ─── CONTACT INFO (10%) ─────────────────────────────────────────
+
 function evaluateContactInfo(info) {
   const tips = [];
   let score = 0;
@@ -119,7 +106,7 @@ function evaluateContactInfo(info) {
   return { score, status: getStatus(score), tips, label: 'Contact Info' };
 }
 
-// ─── SUMMARY (15%) ──────────────────────────────────────────────
+
 function evaluateSummary(summary, targetRole) {
   const tips = [];
   let score = 0;
@@ -130,7 +117,7 @@ function evaluateSummary(summary, targetRole) {
 
   const len = summary.trim().length;
 
-  // Length check (50-300 chars ideal)
+
   if (len >= 50 && len <= 400) {
     score += 30;
   } else if (len < 50) {
@@ -141,7 +128,7 @@ function evaluateSummary(summary, targetRole) {
     score += 15;
   }
 
-  // Action verbs
+
   const lowerSummary = summary.toLowerCase();
   const verbCount = ACTION_VERBS.filter(v => lowerSummary.includes(v)).length;
   if (verbCount >= 2) {
@@ -154,7 +141,7 @@ function evaluateSummary(summary, targetRole) {
     score += 5;
   }
 
-  // Keyword match with target role
+
   if (targetRole) {
     const roleWords = targetRole.toLowerCase().split(/\s+/).filter(w => w.length > 2);
     const matchedWords = roleWords.filter(w => lowerSummary.includes(w));
@@ -170,10 +157,10 @@ function evaluateSummary(summary, targetRole) {
       score += 5;
     }
   } else {
-    score += 15; // No target role to match against
+    score += 15;
   }
 
-  // Completeness bonus
+
   if (len > 20) score += 20;
 
   score = Math.min(score, 100);
@@ -182,7 +169,7 @@ function evaluateSummary(summary, targetRole) {
   return { score, status: getStatus(score), tips, label: 'Summary' };
 }
 
-// ─── EXPERIENCE (25%) ───────────────────────────────────────────
+
 function evaluateExperience(experience, targetRole) {
   const tips = [];
   let score = 0;
@@ -191,7 +178,7 @@ function evaluateExperience(experience, targetRole) {
     return { score: 0, status: 'poor', tips: ['Add at least one work experience entry'], label: 'Experience' };
   }
 
-  // Has entries
+
   score += 15;
 
   let totalBullets = 0;
@@ -225,14 +212,14 @@ function evaluateExperience(experience, targetRole) {
     }
   }
 
-  // Filled entries
+
   if (filledEntries === experience.length) {
     score += 15;
   } else {
     score += Math.round((filledEntries / experience.length) * 15);
   }
 
-  // Bullet points
+
   if (totalBullets >= 3) {
     score += 15;
   } else if (totalBullets > 0) {
@@ -242,7 +229,7 @@ function evaluateExperience(experience, targetRole) {
     tips.push('Add bullet points describing your achievements');
   }
 
-  // Action verbs in bullets
+
   if (totalBullets > 0) {
     const actionRatio = actionVerbBullets / totalBullets;
     if (actionRatio >= 0.6) {
@@ -256,7 +243,7 @@ function evaluateExperience(experience, targetRole) {
     }
   }
 
-  // Quantifiable results
+
   if (totalBullets > 0) {
     const quantRatio = quantifiedBullets / totalBullets;
     if (quantRatio >= 0.4) {
@@ -270,19 +257,19 @@ function evaluateExperience(experience, targetRole) {
     }
   }
 
-  // Multiple entries bonus
+
   if (experience.length >= 2) score += 15;
   else tips.push('Consider adding more work experience entries');
 
   score = Math.min(score, 100);
-  // De-duplicate tips
+
   const uniqueTips = [...new Set(tips)];
   if (uniqueTips.length === 0) uniqueTips.push('Experience section is strong ✓');
 
   return { score, status: getStatus(score), tips: uniqueTips, label: 'Experience' };
 }
 
-// ─── EDUCATION (10%) ────────────────────────────────────────────
+
 function evaluateEducation(education) {
   const tips = [];
   let score = 0;
@@ -291,7 +278,7 @@ function evaluateEducation(education) {
     return { score: 0, status: 'poor', tips: ['Add at least one education entry'], label: 'Education' };
   }
 
-  score += 30; // Has entries
+  score += 30;
 
   for (const edu of education) {
     const hasDegree = edu.degree && edu.degree.trim();
@@ -319,7 +306,7 @@ function evaluateEducation(education) {
   return { score, status: getStatus(score), tips: uniqueTips, label: 'Education' };
 }
 
-// ─── SKILLS (15%) ───────────────────────────────────────────────
+
 function evaluateSkills(skills, targetRole) {
   const tips = [];
   let score = 0;
@@ -331,7 +318,7 @@ function evaluateSkills(skills, targetRole) {
   const technical = skills.technical || [];
   const soft = skills.soft || [];
 
-  // Technical skills
+
   if (technical.length >= 5) {
     score += 35;
   } else if (technical.length >= 3) {
@@ -344,7 +331,7 @@ function evaluateSkills(skills, targetRole) {
     tips.push('Add technical skills');
   }
 
-  // Soft skills
+
   if (soft.length >= 3) {
     score += 25;
   } else if (soft.length > 0) {
@@ -355,14 +342,14 @@ function evaluateSkills(skills, targetRole) {
     score += 0;
   }
 
-  // Non-empty skills
+
   const filledTechnical = technical.filter(s => s && s.trim()).length;
   const filledSoft = soft.filter(s => s && s.trim()).length;
   if (filledTechnical + filledSoft > 0) {
     score += 15;
   }
 
-  // Target role keyword match
+
   if (targetRole && technical.length > 0) {
     const roleWords = targetRole.toLowerCase().split(/\s+/);
     const techLower = technical.map(s => s.toLowerCase());
@@ -383,7 +370,7 @@ function evaluateSkills(skills, targetRole) {
   return { score, status: getStatus(score), tips, label: 'Skills' };
 }
 
-// ─── PROJECTS (10%) ─────────────────────────────────────────────
+
 function evaluateProjects(projects) {
   const tips = [];
   let score = 0;
@@ -392,7 +379,7 @@ function evaluateProjects(projects) {
     return { score: 30, status: 'poor', tips: ['Consider adding projects to showcase your work'], label: 'Projects' };
   }
 
-  score += 30; // Has entries
+  score += 30;
 
   for (const proj of projects) {
     const hasName = proj.name && proj.name.trim();
@@ -419,12 +406,12 @@ function evaluateProjects(projects) {
   return { score, status: getStatus(score), tips: uniqueTips, label: 'Projects' };
 }
 
-// ─── FORMATTING (15%) ───────────────────────────────────────────
+
 function evaluateFormatting(draft) {
   const tips = [];
   let score = 0;
 
-  // Section completeness — how many major sections are present
+
   const sections = ['personal_info', 'summary', 'experience', 'education', 'skills'];
   let presentSections = 0;
   for (const section of sections) {
@@ -445,7 +432,7 @@ function evaluateFormatting(draft) {
     tips.push('Your resume is missing several important sections');
   }
 
-  // Check for empty strings in experience bullets
+
   let hasEmptyBullets = false;
   if (draft.experience) {
     for (const exp of draft.experience) {
@@ -467,7 +454,7 @@ function evaluateFormatting(draft) {
     score += 20;
   }
 
-  // Date consistency
+
   let hasDates = true;
   if (draft.experience) {
     for (const exp of draft.experience) {
@@ -481,7 +468,7 @@ function evaluateFormatting(draft) {
     score += 5;
   }
 
-  // Resume length indicator
+
   const textLength = JSON.stringify(draft).length;
   if (textLength > 500 && textLength < 8000) {
     score += 20;

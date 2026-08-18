@@ -15,15 +15,15 @@ const sizes = {
   lg: '!px-8 !py-4 text-lg',
 };
 
-const Button = forwardRef(({ 
-  children, variant = 'primary', size = 'md', disabled, loading, className = '', 
-  icon: Icon, iconRight, ...props 
+const Button = forwardRef(({
+  children, variant = 'primary', size = 'md', disabled, loading, className = '',
+  icon: Icon, iconRight, ...props
 }, ref) => {
   return (
     <motion.button
       ref={ref}
       whileTap={{ scale: disabled ? 1 : 0.98 }}
-      className={`${variants[variant]} ${sizes[size]} inline-flex items-center justify-center gap-2 
+      className={`${variants[variant]} ${sizes[size]} inline-flex items-center justify-center gap-2
         ${disabled || loading ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''} ${className}`}
       disabled={disabled || loading}
       {...props}

@@ -4,7 +4,7 @@
 def generate_summary_prompt(resume_text: str, target_role: str, ats_insights: str = "") -> list:
     """Prompt for generating a professional summary for a resume."""
     ats_instruction = f"\n\nHere are some weaknesses found in the current resume:\n{ats_insights}\n\nMake sure your summary subtly addresses or compensates for these weaknesses if possible." if ats_insights else ""
-    
+
     return [
         {
             "role": "system",
@@ -78,33 +78,33 @@ def career_recommendation_prompt(resume_skills: list, resume_analysis: dict, res
             "content": f"""You are an AI career guidance expert. Based PURELY on the user's resume skills, resume text, and its outcome analytics, recommend the top 5 most suitable career paths. Do NOT hallucinate data outside of the resume.
 
 {company_instruction}
-            
+
 Be highly personalized — do NOT give generic advice.
 
 You MUST respond with valid JSON only:
-{{
+{
     "recommendations": [
-        {{
+        {
             "career_name": "Career Title",
             "match_percentage": 85,
             "average_salary": "$70,000 - $120,000",
             "required_skills": ["skill1", "skill2"],
             "matching_skills": [
-                {{
+                {
                     "skill_name": "Python",
                     "description": "Your 3 years of backend experience aligns perfectly with this role."
-                }}
+                }
             ],
             "future_demand": "High/Medium/Low",
             "industry": "Technology",
             "job_description": "Brief description of the role",
             "real_world_situation": "A realistic paragraph detailing the current job market, hiring trends, and competition for this role.",
             "hiring_companies": [
-                {{
+                {
                     "company_name": "Company Name",
                     "estimated_salary": "$120k - $150k",
                     "placement_link": "https://www.linkedin.com/jobs/search/?keywords=..."
-                }}
+                }
             ],
             "interview_process": "Detailed breakdown of the expected interview rounds, coding challenges, behavioral questions, and selection criteria for this role (especially at the desired company if provided).",
             "company_specific_plan": "Step-by-step tactical plan on how to achieve this role, get referred, and succeed in the interviews.",
@@ -113,9 +113,9 @@ You MUST respond with valid JSON only:
             "recommended_courses": ["course1", "course2"],
             "roadmap_summary": "Brief 2-3 step path to this career",
             "reason_for_match": "Why this person is suited for this career based specifically on their resume and analytics"
-        }}
+        }
     ]
-}}"""
+} """
         },
         {
             "role": "user",
@@ -199,21 +199,21 @@ You MUST tailor this roadmap to {target_company}'s specific interview process, c
 {company_instruction}
 
 You MUST respond with valid JSON only:
-{{
+{
     "target_career": "Career Name",
     "current_level": "Beginner/Intermediate/Advanced",
     "estimated_completion": "6-12 months",
     "steps": [
-        {{
+        {
             "step_number": 1,
             "title": "Step Title (e.g. Master System Design)",
             "description": "What to do in this step, focusing on skills or specific company interview prep.",
             "duration": "2-3 weeks",
             "resources": ["Resource 1", "Resource 2"],
             "milestone_type": "weekly"
-        }}
+        }
     ]
-}}"""
+} """
         },
         {
             "role": "user",
@@ -227,7 +227,7 @@ EXPERIENCE: {str(profile_data.get('experience', [])) if profile_data.get('experi
 
 {f'CONTEXT: {context}' if context else ''}
 
-Create 8-12 progressive steps from current level to job-ready. 
+Create 8-12 progressive steps from current level to job-ready.
 CRITICAL: You MUST adjust the pathway according to the skills needed ONLY. Compare the TARGET CAREER requirements against the CURRENT SKILLS. DO NOT include steps or learning milestones for skills the user already possesses. Focus purely on bridging the skill gap and preparing for interviews. Be realistic with timelines."""
         },
     ]

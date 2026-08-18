@@ -9,7 +9,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Validate token on mount by calling /api/auth/me
+
   useEffect(() => {
     const validateSession = async () => {
       const token = localStorage.getItem('access_token');
@@ -21,14 +21,14 @@ export function AuthProvider({ children }) {
       }
 
       try {
-        // Verify the token is still valid with the backend
+
         const res = await authAPI.getMe();
-        // Use fresh user data from backend
+
         const freshUser = res.data;
         localStorage.setItem('user', JSON.stringify(freshUser));
         setUser(freshUser);
       } catch {
-        // Token is invalid or expired — clear stale credentials
+
         localStorage.removeItem('access_token');
         localStorage.removeItem('user');
         setUser(null);
@@ -40,7 +40,7 @@ export function AuthProvider({ children }) {
     validateSession();
   }, []);
 
-  // Listen for auth:logout events from the API interceptor
+
   useEffect(() => {
     const handleForceLogout = () => {
       setUser(null);

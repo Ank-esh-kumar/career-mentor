@@ -9,22 +9,22 @@ async def upload_resume(user_id: str, file) -> dict:
     """Upload and parse a resume file."""
     db = get_database()
 
-    # Delete existing resume if any
+
     existing = await db.resumes.find_one({"user_id": user_id})
     if existing and existing.get("filepath"):
         await delete_file(existing["filepath"])
         await db.resumes.delete_one({"_id": existing["_id"]})
 
-    # Save file
+
     file_info = await save_upload_file(file, subfolder="resumes")
 
-    # Parse resume
+
     try:
         parsed_data = parse_resume(file_info["filepath"], file_info["file_type"])
     except Exception as e:
         parsed_data = {"error": str(e), "raw_text": ""}
 
-    # Store in database
+
     resume_doc = {
         "user_id": user_id,
         "filename": file_info["filename"],
@@ -40,7 +40,7 @@ async def upload_resume(user_id: str, file) -> dict:
 
     result = await db.resumes.insert_one(resume_doc)
 
-    # Auto-populate profile fields from parsed data
+
     if parsed_data and "error" not in parsed_data:
         profile_updates = {}
         if parsed_data.get("skills"):
@@ -57,7 +57,7 @@ async def upload_resume(user_id: str, file) -> dict:
                 {"$set": profile_updates},
             )
 
-    # Log activity
+
     await db.activities.insert_one({
         "user_id": user_id,
         "type": "resume_upload",

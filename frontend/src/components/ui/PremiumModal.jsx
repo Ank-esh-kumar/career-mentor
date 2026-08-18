@@ -48,7 +48,7 @@ export default function PremiumModal({ isOpen, onClose, featureName = 'this feat
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -57,7 +57,7 @@ export default function PremiumModal({ isOpen, onClose, featureName = 'this feat
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
           />
 
-          {/* Modal */}
+          {}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -66,11 +66,11 @@ export default function PremiumModal({ isOpen, onClose, featureName = 'this feat
             className="fixed inset-0 flex items-center justify-center z-[101] p-4"
           >
             <div className="relative w-full max-w-lg bg-surface/95 backdrop-blur-xl border border-border rounded-3xl shadow-2xl overflow-hidden">
-              
-              {/* Gradient top bar */}
+
+              {}
               <div className="h-1.5 bg-gradient-to-r from-amber-500 via-primary to-purple-500" />
 
-              {/* Close button */}
+              {}
               <button
                 onClick={onClose}
                 className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors z-10 p-1"
@@ -79,9 +79,9 @@ export default function PremiumModal({ isOpen, onClose, featureName = 'this feat
               </button>
 
               <div className="p-8">
-                {/* Header */}
+                {}
                 <div className="text-center mb-8">
-                  {/* Animated lock icon */}
+                  {}
                   <motion.div
                     initial={{ rotateY: 0 }}
                     animate={{ rotateY: [0, 180, 360] }}
@@ -102,7 +102,7 @@ export default function PremiumModal({ isOpen, onClose, featureName = 'this feat
                   </p>
                 </div>
 
-                {/* Features grid */}
+                {}
                 <div className="space-y-3 mb-8">
                   {PRO_FEATURES.map((feature, i) => (
                     <motion.div
@@ -124,7 +124,7 @@ export default function PremiumModal({ isOpen, onClose, featureName = 'this feat
                   ))}
                 </div>
 
-                {/* Price */}
+                {}
                 <div className="text-center mb-6">
                   <div className="flex items-baseline justify-center gap-1 mb-1">
                     <span className="text-4xl font-bold text-white">$19</span>
@@ -159,13 +159,13 @@ export default function PremiumModal({ isOpen, onClose, featureName = 'this feat
                   )}
                 </AnimatePresence>
 
-                {/* CTA Buttons */}
+                {}
                 <div className="space-y-3">
                   <button
                     onClick={handleActivate}
                     disabled={activating}
                     className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-purple-600 text-white font-semibold text-sm
-                      hover:from-amber-400 hover:to-purple-500 transition-all duration-200 
+                      hover:from-amber-400 hover:to-purple-500 transition-all duration-200
                       disabled:opacity-60 disabled:cursor-not-allowed
                       shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30
                       flex items-center justify-center gap-2"

@@ -41,7 +41,7 @@ async def generate_roadmap(
     try:
         response = await openrouter_client.chat_completion(messages, temperature=0.5)
 
-        # Strip markdown JSON blocks if present
+
         cleaned_response = response.strip()
         if cleaned_response.startswith("```json"):
             cleaned_response = cleaned_response[7:]

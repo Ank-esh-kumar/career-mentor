@@ -35,9 +35,9 @@ def sanitize_input(text: str) -> str:
     """Basic input sanitization."""
     if not text:
         return text
-    # Remove potential script tags
+
     text = re.sub(r"<script[^>]*>.*?</script>", "", text, flags=re.DOTALL | re.IGNORECASE)
-    # Remove HTML tags
+
     text = re.sub(r"<[^>]+>", "", text)
     return text.strip()
 

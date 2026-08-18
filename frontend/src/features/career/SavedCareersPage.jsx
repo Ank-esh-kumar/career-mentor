@@ -12,12 +12,12 @@ export default function SavedCareersPage() {
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState(null);
 
-  useEffect(() => { 
-    fetchData(); 
+  useEffect(() => {
+    fetchData();
   }, []);
 
   const fetchData = async () => {
-    try { 
+    try {
       const [careersRes, resumeRes] = await Promise.all([
         careerAPI.getSaved(),
         resumeAPI.get().catch(() => ({ data: null }))
@@ -55,7 +55,7 @@ export default function SavedCareersPage() {
           {careers.map((career, i) => {
             const isExpanded = expandedId === career.id;
             const details = career.details || career; // Handle legacy saves
-            
+
             return (
               <motion.div key={career.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="card overflow-hidden">
                 {/* Header Section (Always Visible) */}
@@ -72,7 +72,7 @@ export default function SavedCareersPage() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
                     <button onClick={(e) => { e.stopPropagation(); handleDelete(career.id); }} className="p-2 hover:bg-red-500/10 rounded-lg text-gray-500 hover:text-red-400 transition-colors" aria-label="Remove saved career">
                       <Trash2 size={18} />
@@ -93,8 +93,8 @@ export default function SavedCareersPage() {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
                       <div className="px-4 sm:px-6 pb-6 pt-2 border-t border-white/5 space-y-6">
-                        
-                        {/* Real World Situation & Pathway */}
+
+                        {}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                           <div className="space-y-3">
                             <h4 className="flex items-center gap-2 text-sm font-bold text-white uppercase tracking-wider">
@@ -120,7 +120,7 @@ export default function SavedCareersPage() {
                               </div>
                             </div>
                           </div>
-                          
+
                           <div className="space-y-3">
                             <h4 className="flex items-center gap-2 text-sm font-bold text-white uppercase tracking-wider">
                               <Target size={16} className="text-primary-lighter" /> Path & Roadmap
@@ -136,7 +136,7 @@ export default function SavedCareersPage() {
                           </div>
                         </div>
 
-                        {/* Skills Analysis */}
+                        {}
                         <div className="space-y-3 pt-2">
                           <h4 className="flex items-center gap-2 text-sm font-bold text-white uppercase tracking-wider">
                             <Briefcase size={16} className="text-amber-400" /> Skills Analysis
@@ -188,16 +188,16 @@ export default function SavedCareersPage() {
                                 );
                               })()}
                             </div>
-                            
+
                             <div className="bg-rose-500/5 p-4 rounded-xl border border-rose-500/10">
                               {(() => {
-                                // Compute skills to learn using ACTUAL resume skills
+
                                 const userSkillNames = resumeSkills.map(s => s.toLowerCase().trim());
-                                
+
                                 const skillsToLearn = (details.required_skills || []).filter(rs => {
                                   return !userSkillNames.some(us => us.includes(rs.toLowerCase().trim()) || rs.toLowerCase().trim().includes(us));
                                 });
-                                
+
                                 return (
                                   <>
                                     <div className="flex items-center justify-between mb-3">
@@ -224,7 +224,7 @@ export default function SavedCareersPage() {
                           </div>
                         </div>
 
-                        {/* Hiring Companies */}
+                        {}
                         {details.hiring_companies && details.hiring_companies.length > 0 && (
                           <div className="space-y-3 pt-2">
                             <h4 className="flex items-center gap-2 text-sm font-bold text-white uppercase tracking-wider">
@@ -232,10 +232,10 @@ export default function SavedCareersPage() {
                             </h4>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                               {details.hiring_companies.map((company, idx) => (
-                                <a 
-                                  key={idx} 
-                                  href={company.placement_link} 
-                                  target="_blank" 
+                                <a
+                                  key={idx}
+                                  href={company.placement_link}
+                                  target="_blank"
                                   rel="noopener noreferrer"
                                   className="flex items-center justify-between p-3 bg-surface/50 hover:bg-surface border border-white/5 hover:border-white/10 rounded-xl transition-all group"
                                 >
@@ -252,7 +252,7 @@ export default function SavedCareersPage() {
                           </div>
                         )}
 
-                        {/* Interview & Target Company Plan */}
+                        {}
                         {(details.interview_process || details.company_specific_plan) && (
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                             {details.interview_process && (
@@ -261,7 +261,7 @@ export default function SavedCareersPage() {
                                 <p className="text-sm text-gray-400 leading-relaxed whitespace-pre-wrap">{details.interview_process}</p>
                               </div>
                             )}
-                            
+
                             {details.company_specific_plan && (
                               <div className="bg-primary/10 rounded-xl p-4 border border-primary/20">
                                 <h4 className="text-sm font-semibold text-primary-lighter mb-2">Company Specific Plan</h4>

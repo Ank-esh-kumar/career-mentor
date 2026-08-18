@@ -16,7 +16,7 @@ class ErrorHandlerMiddleware(BaseHTTPMiddleware):
             response = await call_next(request)
             return response
         except Exception as e:
-            # Don't catch HTTPException — let FastAPI's handler deal with it
+
             from starlette.exceptions import HTTPException as StarletteHTTPException
             if isinstance(e, StarletteHTTPException):
                 raise

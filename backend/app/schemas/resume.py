@@ -66,6 +66,6 @@ class ResumeDraft(BaseModel):
     id: Optional[str] = None
     user_id: Optional[str] = None
     target_role: str
-    content: Dict[str, Any]  # The JSON structure of the resume (summary, experience, etc.)
+    content: Dict[str, Any]
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None

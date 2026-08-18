@@ -53,7 +53,7 @@ export default function AnalyticsPage() {
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Career Match Distribution */}
+        {}
         {careerMatch.length > 0 && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="card">
             <h3 className="text-lg font-semibold text-white mb-4">Career Match Distribution</h3>
@@ -76,7 +76,7 @@ export default function AnalyticsPage() {
           </motion.div>
         )}
 
-        {/* Skill Categories */}
+        {}
         {skillProgress.length > 0 && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="card">
             <h3 className="text-lg font-semibold text-white mb-4">Skill Categories</h3>
@@ -91,7 +91,7 @@ export default function AnalyticsPage() {
           </motion.div>
         )}
 
-        {/* Resume Score */}
+        {}
         {resumeScore.length > 0 && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="card lg:col-span-2">
             <h3 className="text-lg font-semibold text-white mb-4">Resume Analysis Scores</h3>

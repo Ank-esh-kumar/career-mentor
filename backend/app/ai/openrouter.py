@@ -57,7 +57,7 @@ class OpenRouterClient:
                         headers=self.headers,
                         json=payload,
                     )
-                    
+
                     if response.status_code == 200:
                         data = response.json()
                         return data["choices"][0]["message"]["content"]
@@ -69,7 +69,7 @@ class OpenRouterClient:
                     last_error = str(e)
                     print(f"Model {current_model} exception: {last_error}")
                     continue
-            
+
             raise Exception(f"All fallback models failed. Last error: {last_error}")
 
     async def chat_completion_stream(
@@ -103,9 +103,9 @@ class OpenRouterClient:
                     "max_tokens": max_tokens,
                     "stream": True,
                 }
-                
+
                 try:
-                    # Test if the model works by opening the stream
+
                     async with client.stream(
                         "POST",
                         f"{self.base_url}/chat/completions",
@@ -115,9 +115,9 @@ class OpenRouterClient:
                         if response.status_code != 200:
                             last_error = f"API error ({response.status_code})"
                             print(f"Model {current_model} stream failed: {last_error}")
-                            continue # Try next model
-                            
-                        # If we get here, the model accepted the stream!
+                            continue
+
+
                         async for line in response.aiter_lines():
                             if line.startswith("data: "):
                                 data_str = line[6:]
@@ -132,16 +132,16 @@ class OpenRouterClient:
                                         yield content
                                 except Exception:
                                     continue
-                        # If we successfully finish streaming, return immediately
+
                         return
                 except Exception as e:
                     last_error = str(e)
                     print(f"Model {current_model} stream exception: {last_error}")
                     continue
-            
-            # If we fall through the loop, all models failed
+
+
             yield f"Error: All AI models are currently overwhelmed or unavailable. Please try again later. Last error: {last_error}"
 
 
-# Singleton instance
+
 openrouter_client = OpenRouterClient()

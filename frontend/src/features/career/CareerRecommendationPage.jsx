@@ -57,14 +57,14 @@ export default function CareerRecommendationPage() {
   if (generating) {
     return (
       <div className="py-20 max-w-2xl mx-auto">
-        <DynamicLoader 
+        <DynamicLoader
           texts={[
             "Analyzing your skills and experience...",
             "Scanning current job market trends...",
             "Matching profile with emerging roles...",
             "Curating personalized career paths...",
             "Finalizing AI recommendations..."
-          ]} 
+          ]}
           subtext="Our AI is crafting personalized career recommendations just for you."
         />
       </div>
@@ -125,7 +125,7 @@ export default function CareerRecommendationPage() {
         <EmptyState icon={Compass} title="No Recommendations Yet" description="Complete your profile and upload your resume to get personalized career recommendations." action="Generate Recommendations" onAction={generateRecommendations} />
       )}
 
-      {/* Career Detail Modal */}
+      {}
       <Modal isOpen={!!selectedCareer} onClose={() => setSelectedCareer(null)} title={selectedCareer?.career_name} size="lg">
         {selectedCareer && (
           <div className="space-y-6">

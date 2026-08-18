@@ -62,7 +62,7 @@ class RoadmapStep(BaseModel):
     description: Optional[str] = None
     duration: Optional[str] = None
     resources: Optional[List[str]] = []
-    milestone_type: Optional[str] = None  # weekly, monthly
+    milestone_type: Optional[str] = None
     is_completed: bool = False
 
 
@@ -77,7 +77,7 @@ class CareerRoadmap(BaseModel):
 
 
 class ChatMessage(BaseModel):
-    role: str  # user or assistant
+    role: str
     content: str
     timestamp: Optional[datetime] = None
 
@@ -95,7 +95,7 @@ class ChatResponse(BaseModel):
 
 class LearningResource(BaseModel):
     name: str
-    type: str  # course, book, youtube, documentation, platform, project, certification
+    type: str
     url: Optional[str] = None
     skill: Optional[str] = None
     difficulty: Optional[str] = None
