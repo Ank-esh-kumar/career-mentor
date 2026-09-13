@@ -82,7 +82,7 @@ def career_recommendation_prompt(resume_skills: list, resume_analysis: dict, res
 Be highly personalized — do NOT give generic advice.
 
 You MUST respond with valid JSON only:
-{
+""" + """{
     "recommendations": [
         {
             "career_name": "Career Title",
@@ -199,7 +199,7 @@ You MUST tailor this roadmap to {target_company}'s specific interview process, c
 {company_instruction}
 
 You MUST respond with valid JSON only:
-{
+""" + """{
     "target_career": "Career Name",
     "current_level": "Beginner/Intermediate/Advanced",
     "estimated_completion": "6-12 months",
