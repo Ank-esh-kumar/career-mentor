@@ -29,10 +29,9 @@ class OpenRouterClient:
         primary_model = model or self.model
         fallback_models = [
             primary_model,
-            "google/gemma-4-26b-a4b-it:free",
-            "inclusionai/ling-3.0-flash:free",
-            "nvidia/nemotron-3-nano-30b-a3b:free",
-            "openai/gpt-oss-20b:free"
+            "google/gemma-2-9b-it:free",
+            "meta-llama/llama-3.1-8b-instruct:free",
+            "mistralai/mistral-7b-instruct:free"
         ]
         unique_models = []
         for m in fallback_models:
@@ -83,10 +82,9 @@ class OpenRouterClient:
         primary_model = model or self.model
         fallback_models = [
             primary_model,
-            "google/gemma-4-26b-a4b-it:free",
-            "inclusionai/ling-3.0-flash:free",
-            "nvidia/nemotron-3-nano-30b-a3b:free",
-            "openai/gpt-oss-20b:free"
+            "google/gemma-2-9b-it:free",
+            "meta-llama/llama-3.1-8b-instruct:free",
+            "mistralai/mistral-7b-instruct:free"
         ]
         unique_models = []
         for m in fallback_models:
