@@ -59,15 +59,24 @@ app = FastAPI(
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
+# Determine allowed origins
+allowed_origins = [
+    "http://localhost:5173", 
+    "http://localhost:3000",
+    "https://career-mentor-mu.vercel.app"
+]
+
+# Add custom frontend URL from env if provided
+if settings.frontend_url:
+    # Strip trailing slash just in case
+    clean_url = settings.frontend_url.rstrip("/")
+    if clean_url not in allowed_origins:
+        allowed_origins.append(clean_url)
+
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        settings.frontend_url, 
-        "http://localhost:5173", 
-        "http://localhost:3000",
-        "https://career-mentor-mu.vercel.app" # Explicitly allow the new Vercel deployment
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
