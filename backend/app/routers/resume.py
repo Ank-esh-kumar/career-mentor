@@ -85,7 +85,10 @@ async def analyze_resume(current_user: dict = Depends(get_current_user)):
             import re
             json_match = re.search(r'\{[\s\S]*\}', response)
             if json_match:
-                analysis = json.loads(json_match.group())
+                try:
+                    analysis = json.loads(json_match.group())
+                except Exception:
+                    analysis = {"error": "Failed to parse AI response", "raw_response": response}
             else:
                 analysis = {"error": "Failed to parse AI response", "raw_response": response}
 
@@ -154,7 +157,11 @@ async def generate_resume_draft(
             import re
             json_match = re.search(r'\{[\s\S]*\}', response)
             if json_match:
-                draft_content = json.loads(json_match.group())
+                try:
+                    draft_content = json.loads(json_match.group())
+                except Exception:
+                    print("generate_resume_draft ERROR: Failed to parse AI response into JSON from regex")
+                    raise Exception("Failed to parse AI response into JSON")
             else:
                 print("generate_resume_draft ERROR: Failed to parse AI response into JSON")
                 raise Exception("Failed to parse AI response into JSON")
@@ -211,7 +218,10 @@ async def auto_fix_resume(
             import re
             json_match = re.search(r'\{[\s\S]*\}', response)
             if json_match:
-                fixed_draft = json.loads(json_match.group())
+                try:
+                    fixed_draft = json.loads(json_match.group())
+                except Exception:
+                    raise Exception("Failed to parse AI response")
             else:
                 raise Exception("Failed to parse AI response")
 
@@ -279,7 +289,10 @@ async def ats_evaluate(
             import re
             json_match = re.search(r'\{[\s\S]*\}', response)
             if json_match:
-                evaluation = json.loads(json_match.group())
+                try:
+                    evaluation = json.loads(json_match.group())
+                except Exception:
+                    raise Exception("Failed to parse AI response")
             else:
                 raise Exception("Failed to parse AI response")
 
