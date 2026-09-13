@@ -69,9 +69,13 @@ class ChromaDBClient:
     ) -> Dict[str, Any]:
         """Query a collection for similar documents."""
         collection = self.get_collection(collection_name)
+        count = collection.count() or 0
+        if count == 0:
+            return {"documents": [[]], "metadatas": [[]], "distances": [[]]}
+            
         params = {
             "query_texts": [query_text],
-            "n_results": min(n_results, collection.count() or 1),
+            "n_results": min(n_results, count),
         }
         if where:
             params["where"] = where

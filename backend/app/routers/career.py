@@ -48,9 +48,12 @@ async def generate_recommendations(
         except json.JSONDecodeError:
             json_match = re.search(r'\{[\s\S]*\}', response)
             if json_match:
-                result = json.loads(json_match.group())
+                try:
+                    result = json.loads(json_match.group())
+                except Exception:
+                    result = {"recommendations": []}
             else:
-                raise ValueError("Failed to parse AI response")
+                result = {"recommendations": []}
 
         recommendations = result.get("recommendations", [])
 

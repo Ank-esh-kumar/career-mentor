@@ -33,6 +33,12 @@ async def update_settings(
 ):
     """Update user settings."""
     db = get_database()
+    
+    # Remove sensitive fields to prevent injection
+    data.pop("user_id", None)
+    data.pop("_id", None)
+    data.pop("id", None)
+    
     data["updated_at"] = datetime.now(timezone.utc)
 
     await db.user_settings.update_one(

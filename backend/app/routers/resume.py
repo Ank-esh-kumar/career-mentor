@@ -92,7 +92,6 @@ async def analyze_resume(current_user: dict = Depends(get_current_user)):
         analysis["analyzed_at"] = datetime.now(timezone.utc).isoformat()
 
 
-        from bson import ObjectId
         await db.resumes.update_one(
             {"user_id": current_user["id"]},
             {"$set": {"analysis": analysis, "is_analyzed": True}},

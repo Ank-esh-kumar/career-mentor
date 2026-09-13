@@ -126,10 +126,15 @@ async def toggle_step(
         raise HTTPException(status_code=404, detail="Roadmap not found")
 
     steps = roadmap.get("steps", [])
+    step_found = False
     for step in steps:
         if step.get("step_number") == step_number:
             step["is_completed"] = not step.get("is_completed", False)
+            step_found = True
             break
+            
+    if not step_found:
+        raise HTTPException(status_code=404, detail="Step not found in roadmap")
 
     await db.career_roadmaps.update_one(
         {"_id": ObjectId(roadmap_id)},

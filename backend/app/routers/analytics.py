@@ -28,7 +28,16 @@ async def get_dashboard_stats(current_user: dict = Depends(get_current_user)):
     has_resume = resume is not None
     resume_score = 0
     if resume and resume.get("analysis"):
-        resume_score = resume["analysis"].get("career_readiness_score", 0)
+        raw_score = resume["analysis"].get("career_readiness_score", 0)
+        try:
+            if isinstance(raw_score, str):
+                import re
+                match = re.search(r'\d+', raw_score)
+                resume_score = int(match.group()) if match else 0
+            else:
+                resume_score = int(raw_score)
+        except Exception:
+            resume_score = 0
 
 
     latest_rec = await db.career_recommendations.find_one(
@@ -38,7 +47,16 @@ async def get_dashboard_stats(current_user: dict = Depends(get_current_user)):
     latest_career = None
     if latest_rec and latest_rec.get("recommendations"):
         top = latest_rec["recommendations"][0]
-        career_match_score = top.get("match_percentage", 0)
+        raw_match = top.get("match_percentage", 0)
+        try:
+            if isinstance(raw_match, str):
+                import re
+                match = re.search(r'\d+', raw_match)
+                career_match_score = int(match.group()) if match else 0
+            else:
+                career_match_score = int(raw_match)
+        except Exception:
+            career_match_score = 0
         latest_career = top.get("career_name")
 
 
@@ -47,7 +65,16 @@ async def get_dashboard_stats(current_user: dict = Depends(get_current_user)):
     )
     skill_gap_score = 0
     if latest_gap:
-        skill_gap_score = latest_gap.get("overall_readiness", 0)
+        raw_gap = latest_gap.get("overall_readiness", 0)
+        try:
+            if isinstance(raw_gap, str):
+                import re
+                match = re.search(r'\d+', raw_gap)
+                skill_gap_score = int(match.group()) if match else 0
+            else:
+                skill_gap_score = int(raw_gap)
+        except Exception:
+            skill_gap_score = 0
 
 
     cursor = db.activities.find({"user_id": user_id}).sort("created_at", -1).limit(5)

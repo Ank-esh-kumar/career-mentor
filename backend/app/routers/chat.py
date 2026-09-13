@@ -106,11 +106,16 @@ async def send_message_stream(
 
     async def stream_response():
         full_response = ""
-        async for chunk in openrouter_client.chat_completion_stream(messages):
-            full_response += chunk
-            yield f"data: {json.dumps({'content': chunk})}\n\n"
+        try:
+            async for chunk in openrouter_client.chat_completion_stream(messages):
+                full_response += chunk
+                yield f"data: {json.dumps({'content': chunk})}\n\n"
+        except Exception as e:
+            error_msg = f"\n\n[Error: Connection interrupted. Please try again.]"
+            full_response += error_msg
+            yield f"data: {json.dumps({'content': error_msg})}\n\n"
 
-
+        # Save assistant message to DB
         await db.chat_messages.insert_one({
             "user_id": current_user["id"],
             "conversation_id": conversation_id,

@@ -51,6 +51,7 @@ async def analyze_skill_gap(
 
     messages = skill_gap_prompt(current_skills, target_career, context, resume_text)
 
+    result = {}
     try:
         response = await openrouter_client.chat_completion(messages, temperature=0.3)
 
